@@ -145,6 +145,52 @@ class Delta(MastermindDirecte, TabbedPanel):
             self.ids.btn.text = 'Reiniciar'
             self.pool = copy.copy(self.previousPool)
 
+    def continuar_interfaz(self):
+        self.linea+=1
+        correct = int(self.ids.reds.text)
+        close = int(self.ids.whites.text)
+        feedback = self.Feedback(correct, close)
+        if feedback.correct == 5:
+            print "\nHe ganado!!"
+            self.ids.textprueba.text = "He ganado! (juas) (juas)"
+            self.ids.btn.text='Reiniciar'
+            return None
+        initime = time.time()
+        self.previousPool = copy.copy(self.pool)
+        self.pool = list(self.filter_pool(feedback)) #renueva la lista de posibles combinaciones restantes en base a la interaccion del usuario
+        print "{0} posibles opciones restantes. Pensando...\n".format(len(self.pool))
+        self.previousGuess = copy.copy(self.guess)
+        self.guess = list(self.make_guess(feedback, initime))
+        huecoX = 'hueco'+str(self.linea)
+        try:
+            for y in range(5):
+                huecoXY=huecoX+str(y)
+                self.ids[huecoXY].background_color = self.colorsrgba[self.guess[y]]
+            if self.linea >1:
+                self.ids['textrojo'+str(self.linea-1)].text = str(correct)
+                self.ids['textblanco'+str(self.linea-1)].text = str(close)
+            #########################################aqui ha de venir el movimiento de bolitas!!!!
+            print self.previousGuess
+            print self.guess
+            self.robot.quitar_bolitas(self.previousGuess, self.guess)
+            self.robot.poner_bolitas(self.guess, self.previousGuess)
+            self.robot.mover_robot([0, 0, -24])
+            ######################################### Guardamos la ultima combinacion y la matriz de huecos
+            ultimoCodigo = open('ultimoCodigo', 'w')
+            s=''
+            for listaHuecosColor in self.robot.listaHuecosColores:
+                for listaHuecoColor in listaHuecosColor:
+                    s+='{0},'.format(listaHuecoColor[3])
+            for listaHuecoRobot in self.robot.listaHuecosRobot:
+                s+='{0},'.format(listaHuecoRobot[3])
+            ultimoCodigo.write('{0}|{1}|{2}|{3}|{4}|{5}'.format(self.guess[0],self.guess[1],self.guess[2],self.guess[3],self.guess[4]),s[:-1])
+            ultimoCodigo.close()
+        except:
+            self.ids.textprueba.text = "Te has equivocado. Cambia tu respuesta y vuelve a intentarlo. Si persiste, reinicia."
+            self.ids.next.text = 'Reintentar'
+            self.ids.btn.text = 'Reiniciar'
+            self.pool = copy.copy(self.previousPool)
+
     def empezar2(self):
         self.linea2 = 0
         self.inv.empezar()
@@ -159,6 +205,28 @@ class Delta(MastermindDirecte, TabbedPanel):
         guess2 = guess2.split()
         guess2 = [int(i) for i in guess2]
         """
+        print guess2
+        rojas2, blancas2 = self.inv.continuar(guess2)
+        print rojas2, blancas2
+        huecoX = '2hueco'+str(self.linea2)
+        print guess2
+        for y in range(5):
+            print y
+            huecoXY=huecoX+str(y)
+            print guess2[y]
+            self.ids[huecoXY].background_color = self.colorsrgba[guess2[y]]
+        self.ids['2textrojo'+str(self.linea2)].text = str(rojas2)
+        self.ids['2textblanco'+str(self.linea2)].text = str(blancas2)
+        if rojas2 == 5:
+            self.ids.textprueba2.text = "Has ganado! (jo) (jo)"
+            self.ids.btn2.text='Reiniciar'
+            return None
+
+    def continuar2_interfaz(self):
+        self.linea2+=1
+        guess2 = self.ids.codigo.text
+        guess2 = guess2.split()
+        guess2 = [int(i) for i in guess2]
         print guess2
         rojas2, blancas2 = self.inv.continuar(guess2)
         print rojas2, blancas2

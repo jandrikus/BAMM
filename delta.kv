@@ -43,9 +43,13 @@
                     id: btn
                     on_release: root.empezar()
                 Button:
-                    text: 'siguiente'
+                    text: 'siguiente(pulsadores)'
                     id: next
                     on_release: root.continuar()
+                Button:
+                    text: 'siguiente(interfaz)'
+                    id: next
+                    on_release: root.continuar_interfaz()
             BoxLayout:
                 orientation: 'vertical'
                 StackLayout:
@@ -399,9 +403,13 @@
                     id: btn2
                     on_release: root.empezar2()
                 Button:
-                    text: 'siguiente'
+                    text: 'siguiente(pulsadores)'
                     id: next2
                     on_release: root.continuar2()
+                Button:
+                    text: 'siguiente(interfaz)'
+                    id: next2
+                    on_release: root.continuar2_interfaz()
             BoxLayout:
                 orientation: 'vertical'
                 StackLayout:
