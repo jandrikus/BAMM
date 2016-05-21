@@ -292,7 +292,7 @@ class Robot():
         velocidades=[200, 400, 600, 200, 50]
         factores=[0.05, 0.25, 0.75, 0.9, 1]
         i=0
-        ################################### para evitar movimientos indeseados, pasaremos por 1 punto(s) intermedio(el medio)
+        ################################### para evitar movimientos indeseados, pasaremos por 3 punto(s) intermedios a distintas velocidades
         while dx<=distancia:
             x=origen[0]+(factores[i])*director[0]
             y=origen[1]+(factores[i])*director[1]
@@ -328,10 +328,17 @@ class Robot():
             self.net.synchronize()
 
             dx+=distancia/4
-            if distancia*factores[i]>5:
-                time.sleep(0.1)
-            else:
-                time.sleep(0.05)
+            try:
+                if distancia*(factores[i]-factores[i-1])>4:
+                    time.sleep(0.1)
+                else:
+                    time.sleep(0.05)
+            except IndexError:
+                #factores[i-1] no existe porque i=0
+                if distancia*factores[i]>4:
+                    time.sleep(0.1)
+                else:
+                    time.sleep(0.05)
             i+=1
         """
         parametros_needed = cinematica.inversa(destino[0],destino[1],destino[2])
@@ -534,7 +541,6 @@ class Arduino():
                 print 'El arduino no lee nada coherente con lo deseado'
         respuesta=[int(i) for i in respuesta.split('|')]
         return respuesta
-
 
 class JuegoDirecto(MastermindDirecte):
     robot=Robot()
