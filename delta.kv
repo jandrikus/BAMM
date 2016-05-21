@@ -1,0 +1,688 @@
+#:kivy 1.9.1
+
+<Delta>:
+    canvas:
+        Color:
+            rgb: [.230, .125, .128]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    do_default_tab: False
+    TabbedPanelItem:
+        text: 'Mastermind'
+        BoxLayout:
+            canvas:
+                Color:
+                    rgb: [.230, .125, .128]
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            cols: 2
+            orientation: 'horizontal'
+            pos_hint: {'bottom': 0, 'top': 1}
+            id: boxlay
+            GridLayout:
+                cols:2
+                rows: 5
+                spacing: 5
+                size_hint: 0.5,1
+                Label:
+                    text: '# Rojos'
+                TextInput:
+                    id: reds
+                    font_size: 100
+                    multiline: False
+                Label:
+                    text: '# Blancos'
+                TextInput:
+                    id: whites
+                    font_size: 100
+                    multiline: False
+                Button:
+                    text: 'empezar'
+                    id: btn
+                    on_release: root.empezar()
+                Button:
+                    text: 'siguiente'
+                    id: next
+                    on_release: root.continuar()
+            BoxLayout:
+                orientation: 'vertical'
+                StackLayout:
+                    Label:
+                        text: 'Pulsa empezar para iniciar juego'
+                        text_size: self.size
+                        id: textprueba
+                        multiline: True
+                        font_size: '30sp'
+                        halign: 'center'
+                        valign: 'middle'
+                BoxLayout:
+                    size_hint: 1, 0.3
+                    orientation: 'horizontal'
+                    Label:
+                        text: '1.'
+                        size_hint: 0.2, 1
+                        halign: 'center'
+                        valign: 'middle'
+                    Button:
+                        id: hueco10
+                    Button:
+                        id: hueco11
+                    Button:
+                        id: hueco12
+                    Button:
+                        id: hueco13
+                    Button:
+                        id: hueco14
+                    GridLayout:
+                        cols: 2
+
+                        Label:
+                            text: 'Rojos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: textrojo1
+                            text: ''
+                            size_hint: 0.2, 1
+                        Label:
+                            text: 'Blancos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: textblanco1
+                            text: ''
+                            size_hint: 0.2, 1
+                BoxLayout:
+                    size_hint: 1, 0.3
+                    orientation: 'horizontal'
+                    Label:
+                        text: '2.'
+                        size_hint: 0.2, 1
+                        halign: 'center'
+                        valign: 'middle'
+                    Button:
+                        id: hueco20
+                    Button:
+                        id: hueco21
+                    Button:
+                        id: hueco22
+                    Button:
+                        id: hueco23
+                    Button:
+                        id: hueco24
+                    GridLayout:
+                        cols: 2
+
+                        Label:
+                            text: 'Rojos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: textrojo2
+                            text: ''
+                            size_hint: 0.2, 1
+                        Label:
+                            text: 'Blancos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: textblanco2
+                            text: ''
+                            size_hint: 0.2, 1
+                BoxLayout:
+                    size_hint: 1, 0.3
+                    orientation: 'horizontal'
+                    Label:
+                        text: '3.'
+                        size_hint: 0.2, 1
+                        halign: 'center'
+                        valign: 'middle'
+                    Button:
+                        id: hueco30
+                    Button:
+                        id: hueco31
+                    Button:
+                        id: hueco32
+                    Button:
+                        id: hueco33
+                    Button:
+                        id: hueco34
+                    GridLayout:
+                        cols: 2
+
+                        Label:
+                            text: 'Rojos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: textrojo3
+                            text: ''
+                            size_hint: 0.2, 1
+                        Label:
+                            text: 'Blancos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: textblanco3
+                            text: ''
+                            size_hint: 0.2, 1
+                BoxLayout:
+                    size_hint: 1, 0.3
+                    orientation: 'horizontal'
+                    Label:
+                        text: '4.'
+                        size_hint: 0.2, 1
+                        halign: 'center'
+                        valign: 'middle'
+                    Button:
+                        id: hueco40
+                    Button:
+                        id: hueco41
+                    Button:
+                        id: hueco42
+                    Button:
+                        id: hueco43
+                    Button:
+                        id: hueco44
+                    GridLayout:
+                        cols: 2
+
+                        Label:
+                            text: 'Rojos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: textrojo4
+                            text: ''
+                            size_hint: 0.2, 1
+                        Label:
+                            text: 'Blancos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: textblanco4
+                            text: ''
+                            size_hint: 0.2, 1
+                BoxLayout:
+                    size_hint: 1, 0.3
+                    orientation: 'horizontal'
+                    Label:
+                        text: '5.'
+                        size_hint: 0.2, 1
+                        halign: 'center'
+                        valign: 'middle'
+                    Button:
+                        id: hueco50
+                    Button:
+                        id: hueco51
+                    Button:
+                        id: hueco52
+                    Button:
+                        id: hueco53
+                    Button:
+                        id: hueco54
+                    GridLayout:
+                        cols: 2
+
+                        Label:
+                            text: 'Rojos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: textrojo5
+                            text: ''
+                            size_hint: 0.2, 1
+                        Label:
+                            text: 'Blancos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: textblanco5
+                            text: ''
+                            size_hint: 0.2, 1
+                BoxLayout:
+                    size_hint: 1, 0.3
+                    orientation: 'horizontal'
+                    Label:
+                        text: '6.'
+                        size_hint: 0.2, 1
+                        halign: 'center'
+                        valign: 'middle'
+                    Button:
+                        id: hueco60
+                    Button:
+                        id: hueco61
+                    Button:
+                        id: hueco62
+                    Button:
+                        id: hueco63
+                    Button:
+                        id: hueco64
+                    GridLayout:
+                        cols: 2
+
+                        Label:
+                            text: 'Rojos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: textrojo6
+                            text: ''
+                            size_hint: 0.2, 1
+                        Label:
+                            text: 'Blancos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: textblanco6
+                            text: ''
+                            size_hint: 0.2, 1
+                BoxLayout:
+                    size_hint: 1, 0.3
+                    orientation: 'horizontal'
+                    Label:
+                        text: '7.'
+                        size_hint: 0.2, 1
+                        halign: 'center'
+                        valign: 'middle'
+                    Button:
+                        id: hueco70
+                    Button:
+                        id: hueco71
+                    Button:
+                        id: hueco72
+                    Button:
+                        id: hueco73
+                    Button:
+                        id: hueco74
+                    GridLayout:
+                        cols: 2
+
+                        Label:
+                            text: 'Rojos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: textrojo7
+                            text: ''
+                            size_hint: 0.2, 1
+                        Label:
+                            text: 'Blancos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: textblanco7
+                            text: ''
+                            size_hint: 0.2, 1
+    TabbedPanelItem:
+        text: 'Robot'
+        id: tab2
+        BoxLayout:
+            orientation: 'horizontal'
+            GridLayout:
+                cols: 1
+                size_hint: 0.2, 1
+                Label:
+                    text: 'prueba'
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
+                Label:
+                    text: 'prueba'
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
+                Label:
+                    text: 'prueba'
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
+                Button:
+                    text: 'Buscar Servos'
+                    size_hint: 1, 0.2
+                    on_release: root.buscarServos()
+                Button:
+                    size_hint: 1 , 0.2
+                    text: 'Reset'
+                    on_release: root.reset()
+            FloatLayout:
+                id: tab2layout
+                canvas:
+                    Color:
+                        rgb: [.230, .125, .128]
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+    TabbedPanelItem:
+        text: 'Inverso'
+        id: tab3
+        BoxLayout:
+            canvas:
+                Color:
+                    rgb: [.230, .125, .128]
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            cols: 2
+            orientation: 'horizontal'
+            pos_hint: {'bottom': 0, 'top': 1}
+            id: boxlay2
+            GridLayout:
+                cols:2
+                rows: 5
+                spacing: 5
+                size_hint: 0.5,1
+                Label:
+                    text: 'Codigo'
+                TextInput:
+                    id: codigo
+                    font_size: 20
+                    multiline: False
+                Button:
+                    text: 'empezar'
+                    id: btn2
+                    on_release: root.empezar2()
+                Button:
+                    text: 'siguiente'
+                    id: next2
+                    on_release: root.continuar2()
+            BoxLayout:
+                orientation: 'vertical'
+                StackLayout:
+                    Label:
+                        text: 'Pulsa empezar para iniciar juego'
+                        text_size: self.size
+                        id: textprueba2
+                        multiline: True
+                        font_size: '30sp'
+                        halign: 'center'
+                        valign: 'middle'
+                BoxLayout:
+                    size_hint: 1, 0.3
+                    orientation: 'horizontal'
+                    Label:
+                        text: '1.'
+                        size_hint: 0.2, 1
+                        halign: 'center'
+                        valign: 'middle'
+                    Button:
+                        id: 2hueco10
+                    Button:
+                        id: 2hueco11
+                    Button:
+                        id: 2hueco12
+                    Button:
+                        id: 2hueco13
+                    Button:
+                        id: 2hueco14
+                    GridLayout:
+                        cols: 2
+
+                        Label:
+                            text: 'Rojos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: 2textrojo1
+                            text: ''
+                            size_hint: 0.2, 1
+                        Label:
+                            text: 'Blancos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: 2textblanco1
+                            text: ''
+                            size_hint: 0.2, 1
+                BoxLayout:
+                    size_hint: 1, 0.3
+                    orientation: 'horizontal'
+                    Label:
+                        text: '2.'
+                        size_hint: 0.2, 1
+                        halign: 'center'
+                        valign: 'middle'
+                    Button:
+                        id: 2hueco20
+                    Button:
+                        id: 2hueco21
+                    Button:
+                        id: 2hueco22
+                    Button:
+                        id: 2hueco23
+                    Button:
+                        id: 2hueco24
+                    GridLayout:
+                        cols: 2
+
+                        Label:
+                            text: 'Rojos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: 2textrojo2
+                            text: ''
+                            size_hint: 0.2, 1
+                        Label:
+                            text: 'Blancos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: 2textblanco2
+                            text: ''
+                            size_hint: 0.2, 1
+                BoxLayout:
+                    size_hint: 1, 0.3
+                    orientation: 'horizontal'
+                    Label:
+                        text: '3.'
+                        size_hint: 0.2, 1
+                        halign: 'center'
+                        valign: 'middle'
+                    Button:
+                        id: 2hueco30
+                    Button:
+                        id: 2hueco31
+                    Button:
+                        id: 2hueco32
+                    Button:
+                        id: 2hueco33
+                    Button:
+                        id: 2hueco34
+                    GridLayout:
+                        cols: 2
+
+                        Label:
+                            text: 'Rojos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: 2textrojo3
+                            text: ''
+                            size_hint: 0.2, 1
+                        Label:
+                            text: 'Blancos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: 2textblanco3
+                            text: ''
+                            size_hint: 0.2, 1
+                BoxLayout:
+                    size_hint: 1, 0.3
+                    orientation: 'horizontal'
+                    Label:
+                        text: '4.'
+                        size_hint: 0.2, 1
+                        halign: 'center'
+                        valign: 'middle'
+                    Button:
+                        id: 2hueco40
+                    Button:
+                        id: 2hueco41
+                    Button:
+                        id: 2hueco42
+                    Button:
+                        id: 2hueco43
+                    Button:
+                        id: 2hueco44
+                    GridLayout:
+                        cols: 2
+
+                        Label:
+                            text: 'Rojos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: 2textrojo4
+                            text: ''
+                            size_hint: 0.2, 1
+                        Label:
+                            text: 'Blancos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: 2textblanco4
+                            text: ''
+                            size_hint: 0.2, 1
+                BoxLayout:
+                    size_hint: 1, 0.3
+                    orientation: 'horizontal'
+                    Label:
+                        text: '5.'
+                        size_hint: 0.2, 1
+                        halign: 'center'
+                        valign: 'middle'
+                    Button:
+                        id: 2hueco50
+                    Button:
+                        id: 2hueco51
+                    Button:
+                        id: 2hueco52
+                    Button:
+                        id: 2hueco53
+                    Button:
+                        id: 2hueco54
+                    GridLayout:
+                        cols: 2
+
+                        Label:
+                            text: 'Rojos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: 2textrojo5
+                            text: ''
+                            size_hint: 0.2, 1
+                        Label:
+                            text: 'Blancos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: 2textblanco5
+                            text: ''
+                            size_hint: 0.2, 1
+                BoxLayout:
+                    size_hint: 1, 0.3
+                    orientation: 'horizontal'
+                    Label:
+                        text: '6.'
+                        size_hint: 0.2, 1
+                        halign: 'center'
+                        valign: 'middle'
+                    Button:
+                        id: 2hueco60
+                    Button:
+                        id: 2hueco61
+                    Button:
+                        id: 2hueco62
+                    Button:
+                        id: 2hueco63
+                    Button:
+                        id: 2hueco64
+                    GridLayout:
+                        cols: 2
+
+                        Label:
+                            text: 'Rojos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: 2textrojo6
+                            text: ''
+                            size_hint: 0.2, 1
+                        Label:
+                            text: 'Blancos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: 2textblanco6
+                            text: ''
+                            size_hint: 0.2, 1
+                BoxLayout:
+                    size_hint: 1, 0.3
+                    orientation: 'horizontal'
+                    Label:
+                        text: '7.'
+                        size_hint: 0.2, 1
+                        halign: 'center'
+                        valign: 'middle'
+                    Button:
+                        id: 2hueco70
+                    Button:
+                        id: 2hueco71
+                    Button:
+                        id: 2hueco72
+                    Button:
+                        id: 2hueco73
+                    Button:
+                        id: 2hueco74
+                    GridLayout:
+                        cols: 2
+
+                        Label:
+                            text: 'Rojos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: 2textrojo7
+                            text: ''
+                            size_hint: 0.2, 1
+                        Label:
+                            text: 'Blancos:'
+                            text_size: self.size
+                            halign: 'center'
+                            valign: 'middle'
+                        Label:
+                            id: 2textblanco7
+                            text: ''
+                            size_hint: 0.2, 1
