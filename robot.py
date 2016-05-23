@@ -516,25 +516,26 @@ class Arduino():
     def codigo2(self):
         a=True
         self.arduino.write('2')
+        time.sleep(1)
         respuesta=''
         while a:
             try:
-                respuesta += arduino.read()
-                print respuesta
+                respuesta += self.arduino.read()
                 if len(respuesta)==3:
                     a=False
             except:
                 print 'El arduino no lee nada coherente con lo deseado'
+                time.sleep(1)
         respuesta=[int(i) for i in respuesta.split('|')]
         return respuesta
     def codigo5(self):
         a=True
         self.arduino.write('3')
+        time.sleep(1)
         respuesta=''
         while a:
             try:
-                respuesta += arduino.read()
-                print respuesta
+                respuesta += self.arduino.read()
                 if len(respuesta)==9:
                     a=False
             except:
