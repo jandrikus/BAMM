@@ -1,0 +1,4 @@
+baudRate: 1000000
+highestServoId: 10
+port: /dev/ttyUSB0
+servoIds: [3, 4, 6]
