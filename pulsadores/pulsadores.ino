@@ -1,11 +1,11 @@
 // entradas de los pulsadores
-const int botonRojo = 2;
-const int botonBlanco = 4;
-const int botonReset = 5;
-const int botonNext = 6;
-const int botonPlata = 3;
-const int botonAzul = 7;
-const int botonAmarillo = 10;
+const int botonRojo = 7;
+const int botonBlanco = 6;
+const int botonReset = 13;
+const int botonNext = 10;
+const int botonPlata = 2;
+const int botonAzul = 4;
+const int botonAmarillo = 5;
 
 const int electroiman_PWM = 11;
 
