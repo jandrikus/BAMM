@@ -194,27 +194,75 @@ class Delta(MastermindDirecte, TabbedPanel):
     def empezar2(self):
         self.linea2 = 0
         self.inv.empezar()
+        self.linea2+=1
+        ######################################### respuesta del arduino
+        self.pulsadores = Arduino()
+        guess2 = self.pulsadores.codigo5()
+        print guess2
+        rojas2, blancas2 = self.inv.continuar(guess2)
+        print rojas2, blancas2
+        self.nuevas = [4 for i in range(rojas2), 3 for i in range(blancas2)]
+        self.viejas = []
+        huecoX = '2hueco'+str(self.linea2)
+        for y in range(5):
+            huecoXY=huecoX+str(y)
+            print guess2[y]
+            self.ids[huecoXY].background_color = self.colorsrgba[guess2[y]]
+        self.robot.quitar_bolitas(self.viejas, self.nuevas)
+        self.robot.poner_bolitas(self.nuevas, self.viejas)
+        self.robot.mover_robot([0, 0, -24])
+        self.ids['2textrojo'+str(self.linea2)].text = str(rojas2)
+        self.ids['2textblanco'+str(self.linea2)].text = str(blancas2)
+        if rojas2 == 5:
+            self.ids.textprueba2.text = "Has ganado! (jo) (jo)"
+            self.ids.btn2.text='Reiniciar'
+            return None
+
+    def empezar2_interfaz(self):
+        self.linea2 = 0
+        self.inv.empezar()
+        self.linea2+=1
+        guess2 = self.ids.codigo.text
+        guess2 = guess2.split()
+        guess2 = [int(i) for i in guess2]
+        print guess2
+        rojas2, blancas2 = self.inv.continuar(guess2)
+        print rojas2, blancas2
+        self.nuevas = [4 for i in range(rojas2), 3 for i in range(blancas2)]
+        self.viejas = []
+        huecoX = '2hueco'+str(self.linea2)
+        for y in range(5):
+            huecoXY=huecoX+str(y)
+            print guess2[y]
+            self.ids[huecoXY].background_color = self.colorsrgba[guess2[y]]
+        self.robot.quitar_bolitas(self.viejas, self.nuevas)
+        self.robot.poner_bolitas(self.nuevas, self.viejas)
+        self.robot.mover_robot([0, 0, -24])
+        self.ids['2textrojo'+str(self.linea2)].text = str(rojas2)
+        self.ids['2textblanco'+str(self.linea2)].text = str(blancas2)
+        if rojas2 == 5:
+            self.ids.textprueba2.text = "Has ganado! (jo) (jo)"
+            self.ids.btn2.text='Reiniciar'
+            return None
 
     def continuar2(self):
         self.linea2+=1
         ######################################### respuesta del arduino
         self.pulsadores = Arduino()
         guess2 = self.pulsadores.codigo5()
-        """
-        guess2 = self.ids.codigo.text
-        guess2 = guess2.split()
-        guess2 = [int(i) for i in guess2]
-        """
         print guess2
         rojas2, blancas2 = self.inv.continuar(guess2)
         print rojas2, blancas2
+        self.viejas = copy.copy(self.nuevas)
+        self.nuevas = [4 for i in range(rojas2), 3 for i in range(blancas2)]
         huecoX = '2hueco'+str(self.linea2)
-        print guess2
         for y in range(5):
-            print y
             huecoXY=huecoX+str(y)
             print guess2[y]
             self.ids[huecoXY].background_color = self.colorsrgba[guess2[y]]
+        self.robot.quitar_bolitas(self.viejas, self.nuevas)
+        self.robot.poner_bolitas(self.nuevas, self.viejas)
+        self.robot.mover_robot([0, 0, -24])
         self.ids['2textrojo'+str(self.linea2)].text = str(rojas2)
         self.ids['2textblanco'+str(self.linea2)].text = str(blancas2)
         if rojas2 == 5:
@@ -231,16 +279,14 @@ class Delta(MastermindDirecte, TabbedPanel):
         rojas2, blancas2 = self.inv.continuar(guess2)
         print rojas2, blancas2
         huecoX = '2hueco'+str(self.linea2)
-        print guess2
         for y in range(5):
-            print y
             huecoXY=huecoX+str(y)
             print guess2[y]
             self.ids[huecoXY].background_color = self.colorsrgba[guess2[y]]
         self.ids['2textrojo'+str(self.linea2)].text = str(rojas2)
         self.ids['2textblanco'+str(self.linea2)].text = str(blancas2)
         #########################################aqui ha de venir el movimiento de bolitas!!!!
-        nuevas=[1 for i in range(rojas2), 0 for i in range(blancas2)]
+        nuevas=[4 for i in range(rojas2), 3 for i in range(blancas2)]
         viejas=[]
         print nuevas
         self.robot.quitar_bolitas(viejas, nuevas)
