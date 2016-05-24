@@ -172,17 +172,17 @@ class Robot():
     atributos: iman
     """
     listaHuecosColores = [
-                            [[-6, -3.6, -27.4, 1], [-5.9, -0.1, -27.4, 1], [-6, 3.2, -27.4, 1], [-5.9, 6, -27.4, 1], [-5.9, 9.2, -27.4, 1]],
-                            [[-3, -3.4, -27.6, 1], [-2.8, -0, -27.4, 1], [-3, 3, -27.4, 1], [-3, 6, -27.4, 1], [-3, 9, -27.4, 1]],
-                            [[0, -3.6, -27.4, 1], [0.2, -0.5, -27.4, 1], [0.4, 3.2, -27.4, 1], [0.4, 6.4, -27.4, 1], [0.2, 9.2, -27.4, 1]],
-                            [[3.2, -3.6, -27.4, 1], [3.3, -0.3, -27.4, 1], [3.6, 3.1, -27.4, 1], [3.6, 6.1, -27.4, 1], [3.3, 9.2, -27.4, 1]],
-                            [[6.2, -3.6, -27.4, 1], [6.5, -0.5, -27.4, 1], [6.6, 3, -27.4, 1], [6.6, 6.1, -27.4, 1], [6.5, 9, -27.4, 1]]
+                            [[-6, -3.6, -27.4, 1], [-5.9, -0.1, -27.4, 1], [-5.9, 3.2, -27.4, 1], [-5.9, 6.3, -27.4, 1], [-5.9, 9.5, -27.4, 1]],
+                            [[-3, -3.4, -27.6, 1], [-2.8, -0, -27.4, 1], [-3, 3, -27.4, 1], [-3, 6, -27.4, 1], [-3, 9.3, -27.4, 1]],
+                            [[0, -3.6, -27.4, 1], [0.2, -0.5, -27.5, 1], [0.4, 3.2, -27.4, 1], [0.4, 6.4, -27.4, 1], [0.2, 9.3, -27.4, 1]],
+                            [[3.2, -3.6, -27.4, 1], [3.3, -0.3, -27.4, 1], [3.6, 3.1, -27.4, 1], [3.6, 6.1, -27.4, 1], [3.3, 9.4, -27.4, 1]],
+                            [[6.6, -3.4, -27.4, 1], [6.5, -0, -27.4, 1], [6.6, 3.4, -27.4, 1], [6.6, 6.9, -27.4, 1], [6.5, 10.5, -27.4, 1]]
         ]
     listaHuecosRobot = [
                             [-6, -9.8, -27.3, 0],
-                            [-2.8, -9.6, -27.3, 0],
-                            [0.1, -9.5, -27.3, 0],
-                            [3, -9.5, -27.3, 0],
+                            [-3.2, -9.8, -27.3, 0],
+                            [0.4, -9.6, -27.35, 0],
+                            [3.3, -9.8, -27.3, 0],
                             [6.4, -9.5, -27.3, 0]
         ]
     """
@@ -306,21 +306,21 @@ class Robot():
             #servo principal segun base de referencia
             self.net._dynamixel_map[6].moving_speed = velocidades[i]
             self.net._dynamixel_map[6].torque_enable = True
-            self.net._dynamixel_map[6].torque_limit = 1000
+            self.net._dynamixel_map[6].torque_limit = 1023
             self.net._dynamixel_map[6].max_torque = 1023
             self.net._dynamixel_map[6].goal_position = posicion1
 
             #servo a la derecha del principal
             self.net._dynamixel_map[4].moving_speed = velocidades[i]
             self.net._dynamixel_map[4].torque_enable = True
-            self.net._dynamixel_map[4].torque_limit = 1000
+            self.net._dynamixel_map[4].torque_limit = 1023
             self.net._dynamixel_map[4].max_torque = 1023
             self.net._dynamixel_map[4].goal_position = posicion2
 
             #servo a la izquierda del principal
             self.net._dynamixel_map[3].moving_speed =velocidades[i]
             self.net._dynamixel_map[3].torque_enable = True
-            self.net._dynamixel_map[3].torque_limit = 1000
+            self.net._dynamixel_map[3].torque_limit = 1023
             self.net._dynamixel_map[3].max_torque = 1023
             self.net._dynamixel_map[3].goal_position = posicion3
 
@@ -329,16 +329,44 @@ class Robot():
 
             dx+=distancia/4
             try:
-                if distancia*(factores[i]-factores[i-1])>4:
-                    time.sleep(0.1)
+                if distancia*(factores[i]-factores[i-1])>1:
+                    time.sleep(0.095)
+                elif distancia*(factores[i]-factores[i-1])>2:
+                    time.sleep(0.145)
+                elif distancia*(factores[i]-factores[i-1])>3:
+                    time.sleep(0.195)
+                elif distancia*(factores[i]-factores[i-1])>4:
+                    time.sleep(0.245)
+                elif distancia*(factores[i]-factores[i-1])>5:
+                    time.sleep(0.295)
+                elif distancia*(factores[i]-factores[i-1])>6:
+                    time.sleep(0.345)
+                elif distancia*(factores[i]-factores[i-1])>7:
+                    time.sleep(0.395)
+                elif distancia*(factores[i]-factores[i-1])>8:
+                    time.sleep(0.445)
+                elif distancia*(factores[i]-factores[i-1])>9:
+                    time.sleep(0.495)
+                elif distancia*(factores[i]-factores[i-1])>10:
+                    time.sleep(0.545)
+                elif distancia*(factores[i]-factores[i-1])>11:
+                    time.sleep(0.595)
+                elif distancia*(factores[i]-factores[i-1])>12:
+                    time.sleep(0.645)
                 else:
-                    time.sleep(0.05)
+                    time.sleep(0.045)
             except IndexError:
                 #factores[i-1] no existe porque i=0
-                if distancia*factores[i]>4:
-                    time.sleep(0.1)
+                if distancia*factores[i]>1:
+                    time.sleep(0.095)
+                elif distancia*factores[i]>2:
+                    time.sleep(0.145)
+                elif distancia*factores[i]>3:
+                    time.sleep(0.195)
+                elif distancia*factores[i]>4:
+                    time.sleep(0.245)
                 else:
-                    time.sleep(0.05)
+                    time.sleep(0.045)
             i+=1
         """
         parametros_needed = cinematica.inversa(destino[0],destino[1],destino[2])
@@ -394,7 +422,9 @@ class Robot():
         self.mover_robot(huecoColor2)
         time.sleep(0.1)
         ############################################## movemos el robot al huecoRobot, el cual ya hemos verificado que este vacio
+        p=time.time()
         self.mover_robot(huecoRobot)
+        print time.time()-p
         time.sleep(0.1)
         ############################################## bajamos el electroiman y lo apagamos
         huecoRobot2 = list(copy.copy(huecoRobot))
@@ -437,7 +467,7 @@ class Robot():
         huecoColor2[2]-=2.5
         self.mover_robot(huecoColor2)
         self.iman.apagar()
-        time.sleep(0.3)
+        time.sleep(0.35)
         ############################################## subimos el electroiman (ya apagado)
         huecoColor2[2]+=2.5#devolvemos la coordenada z original
         self.mover_robot(huecoColor2)
@@ -491,7 +521,6 @@ class Robot():
                 i=0
                 a=False
                 for listaHuecoColor in listaHuecosColor:
-                    print listaHuecoColor[3]
                     if listaHuecoColor[3] == 0 and a==False:
                         huecoColor = listaHuecoColor[:3]
                         self.listaHuecosColores[bolita][i][3]=1
