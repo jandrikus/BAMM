@@ -88,7 +88,7 @@ class Delta(MastermindDirecte, TabbedPanel):
                 s+='{0},'.format(listaHuecoColor[3])
         for listaHuecoRobot in self.robot.listaHuecosRobot:
             s+='{0},'.format(listaHuecoRobot[3])
-        ultimoCodigo.write('{0}|{1}|{2}|{3}|{4}|{5}'.format(self.guess[0],self.guess[1],self.guess[2],self.guess[3],self.guess[4]),s[:-1])
+        ultimoCodigo.write('{0}|{1}|{2}|{3}|{4}|{5}'.format(self.guess[0],self.guess[1],self.guess[2],self.guess[3],self.guess[4],s[:-1]))
         ultimoCodigo.close()
 
     def continuar(self):
@@ -137,7 +137,7 @@ class Delta(MastermindDirecte, TabbedPanel):
                     s+='{0},'.format(listaHuecoColor[3])
             for listaHuecoRobot in self.robot.listaHuecosRobot:
                 s+='{0},'.format(listaHuecoRobot[3])
-            ultimoCodigo.write('{0}|{1}|{2}|{3}|{4}|{5}'.format(self.guess[0],self.guess[1],self.guess[2],self.guess[3],self.guess[4]),s[:-1])
+            ultimoCodigo.write('{0}|{1}|{2}|{3}|{4}|{5}'.format(self.guess[0],self.guess[1],self.guess[2],self.guess[3],self.guess[4],s[:-1]))
             ultimoCodigo.close()
         except:
             self.ids.textprueba.text = "Te has equivocado. Cambia tu respuesta y vuelve a intentarlo. Si persiste, reinicia."
@@ -183,7 +183,7 @@ class Delta(MastermindDirecte, TabbedPanel):
                     s+='{0},'.format(listaHuecoColor[3])
             for listaHuecoRobot in self.robot.listaHuecosRobot:
                 s+='{0},'.format(listaHuecoRobot[3])
-            ultimoCodigo.write('{0}|{1}|{2}|{3}|{4}|{5}'.format(self.guess[0],self.guess[1],self.guess[2],self.guess[3],self.guess[4]),s[:-1])
+            ultimoCodigo.write('{0}|{1}|{2}|{3}|{4}|{5}'.format(self.guess[0],self.guess[1],self.guess[2],self.guess[3],self.guess[4],s[:-1]))
             ultimoCodigo.close()
         except:
             self.ids.textprueba.text = "Te has equivocado. Cambia tu respuesta y vuelve a intentarlo. Si persiste, reinicia."
@@ -239,6 +239,13 @@ class Delta(MastermindDirecte, TabbedPanel):
             self.ids[huecoXY].background_color = self.colorsrgba[guess2[y]]
         self.ids['2textrojo'+str(self.linea2)].text = str(rojas2)
         self.ids['2textblanco'+str(self.linea2)].text = str(blancas2)
+        #########################################aqui ha de venir el movimiento de bolitas!!!!
+        nuevas=[1 for i in range(rojas2), 0 for i in range(blancas2)]
+        viejas=[]
+        print nuevas
+        self.robot.quitar_bolitas(viejas, nuevas)
+        self.robot.poner_bolitas(nuevas, viejas)
+        self.robot.mover_robot([0, 0, -24])
         if rojas2 == 5:
             self.ids.textprueba2.text = "Has ganado! (jo) (jo)"
             self.ids.btn2.text='Reiniciar'
