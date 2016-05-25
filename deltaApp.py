@@ -20,10 +20,18 @@ from robot import *
 
 class Inverso(MastermindInvers):
     def empezar(self):
+        """
+        Complementa la funcion empezar del juego inverso
+        Se piensa un codigo aleatorio el cual el usuario ha de adivinar
+        """
         self.codigo = [randint(0,5) for i in range(5)]
         print 'ready'
 
     def continuar(self, guess):
+        """
+        Complementa la funcion continuar el siguiente turno del juego inverso
+        Calcula la respuesta del robot ante el codigo propuesta por el usuario
+        """
         self.guess = copy.copy(guess)
         self.codigoPrueba = copy.copy(self.codigo)
         self.rojas = 0
@@ -34,18 +42,18 @@ class Inverso(MastermindInvers):
 
 class Delta(MastermindDirecte, TabbedPanel):
     text_input = ObjectProperty(None)
-    colors = ['Rojo', 'Azul', 'Verde', 'Blanco', 'Negro']
-    #red = (255, 0, 0, 1)
-    #azul = (0, 100, 250, 1)
-    #amari = (255, 255, 0, 1)
-    #white = (255, 255, 255, 1)
-    #plata = (138, 149, 151, 1)
-    colorsrgba = [(255, 0, 0, 1),(0, 100, 250, 1),(255, 255, 0, 1),(255, 255, 255, 1),(138, 149, 151, 1)]
+    colors = ['Plata', 'Azul', 'Verde', 'Blanco', 'Rojo']
+    #red = (255, 0, 0, 1) azul = (0, 100, 250, 1) amari = (255, 255, 0, 1) white = (255, 255, 255, 1) gris = (128, 128, 128, 1)
+    colorsrgba = [(128, 128, 128, 1),(0, 100, 250, 1),(255, 255, 0, 1),(255, 255, 255, 1),(255, 0, 0, 1)]
     robot=Robot()
     robot.buscarServos()
     inv = Inverso()
 
     def empezar(self):
+        """
+        Empieza el juego directo con un primer movimiento
+        Si el programa tiene una configuracion cargada, primero limpia el tablero y luego empieza
+        """
         self.linea = 1
         choices, holes = 5, 5
     	self.pool = self.generate_initial_pool(choices, holes)#genera una lista con todas las posibilidades sin repetir
@@ -92,6 +100,10 @@ class Delta(MastermindDirecte, TabbedPanel):
         ultimoCodigo.close()
 
     def continuar(self):
+        """
+        Continua un turno del juego, requiere la respuesta del usuario por pulsadores
+        Siempre guarda la ultima configuracion del robot para siguientes inicios
+        """
         self.linea+=1
         ######################################### respuesta del arduino
         self.pulsadores = Arduino()
@@ -99,10 +111,6 @@ class Delta(MastermindDirecte, TabbedPanel):
         correct = respuesta[0]
         close = respuesta[1]
         ########################################## termina respuesta
-        """
-        correct = int(self.ids.reds.text)
-        close = int(self.ids.whites.text)
-        """
         feedback = self.Feedback(correct, close)
         if feedback.correct == 5:
             print "\nHe ganado!!"
@@ -146,6 +154,10 @@ class Delta(MastermindDirecte, TabbedPanel):
             self.pool = copy.copy(self.previousPool)
 
     def continuar_interfaz(self):
+        """
+        Continua un turno del juego, requiere la respuesta del usuario por texto de interfaz
+        Siempre guarda la ultima configuracion del robot para siguientes inicios
+        """
         self.linea+=1
         correct = int(self.ids.reds.text)
         close = int(self.ids.whites.text)
@@ -192,6 +204,10 @@ class Delta(MastermindDirecte, TabbedPanel):
             self.pool = copy.copy(self.previousPool)
 
     def empezar2(self):
+        """
+        Empieza el juego inverso con un primer movimiento
+        Requiere la respuesta del usuario por pulsadores
+        """
         self.linea2 = 0
         self.inv.empezar()
         self.linea2+=1
@@ -219,6 +235,10 @@ class Delta(MastermindDirecte, TabbedPanel):
             return None
 
     def empezar2_interfaz(self):
+        """
+        Empieza el juego inverso con un primer movimiento
+        Requiere la respuesta del usuario por por texto de interfaz
+        """
         self.linea2 = 0
         self.inv.empezar()
         self.linea2+=1
@@ -246,6 +266,9 @@ class Delta(MastermindDirecte, TabbedPanel):
             return None
 
     def continuar2(self):
+        """
+        Continua un turno del juego, requiere la respuesta del usuario por pulsadores
+        """
         self.linea2+=1
         ######################################### respuesta del arduino
         self.pulsadores = Arduino()
@@ -271,6 +294,9 @@ class Delta(MastermindDirecte, TabbedPanel):
             return None
 
     def continuar2_interfaz(self):
+        """
+        Continua un turno del juego, requiere la respuesta del usuario por texto de interfaz
+        """
         self.linea2+=1
         guess2 = self.ids.codigo.text
         guess2 = guess2.split()
