@@ -15,7 +15,7 @@ from random import randint
 
 class MastermindDirecte():
 
-    colors = ['Rojo', 'Azul', 'Amarillo', 'Blanco', 'Plateado']
+    colors = ['Plateado', 'Azul', 'Amarillo', 'Blanco', 'Rojo']
     Feedback = collections.namedtuple('Feedback', ['correct', 'close'])
 
     def colorToCode(self,color):
@@ -47,6 +47,9 @@ class MastermindDirecte():
         return list(itertools.product(*lista)) #todas las posibles combinaciones sin repetir
 
     def buscarRojas(self):
+        """
+        busca cuentas 'rojas' hay en el codigo propuesto, es decir, bolitas del color correcto en el sitio correcto
+        """
         for i in range(5):
             if self.codigoPrueba[i] == self.guessPrueba[i]:
                 self.rojas+=1
@@ -57,20 +60,34 @@ class MastermindDirecte():
             self.guessPrueba.remove(None)
 
     def buscarBlancas(self):
+        """
+        busca cuentas 'blancas' hay en el codigo propuesto, es decir, bolitas del color correcto en el sitio incorrecto, sin repetir bolitas
+        """
         for i in self.guessPrueba:
             if i in self.codigoPrueba:
                 self.blancas+=1
                 self.codigoPrueba.remove(i)
 
     def get_feedback(self):
+        """
+        devuelve una respuesta en forma de feedback de cuantas rojas y blancas se han calculado
+        """
         self.buscarRojas()
         self.buscarBlancas()
         return self.Feedback(self.rojas, self.blancas) #namedtuple con los ROJOS y BLANCOS de las suposiciones del programa
 
-    def is_match(self,feedback):#possible = una a una cada combinacion posible de la lista pool; feedback = ROJAS y BLANCAS del usuario
-        return feedback == self.get_feedback() #compara si los rojos y los blancos de nuestras suposiciones coinciden con los de usuario
+    def is_match(self,feedback):
+        """
+        Compara True or False si los rojos y los blancos de nuestras suposiciones coinciden con los de usuario, que son feedback
+        """
+        return feedback == self.get_feedback()
 
     def filter_pool(self, feedback):
+        """
+        filtra todas las combinaciones posibiles restantes y genera una nueva lista
+        unicamente con las combinaciones que cumplen con el feedback del usuario
+        sin contemplar el ultimo codigo propuesto por el programa al usuario
+        """
         for possible in self.pool: #cada combinacion restante posible
             self.rojas = 0
             self.blancas = 0
@@ -79,7 +96,12 @@ class MastermindDirecte():
             if self.is_match(feedback) and (possible != self.guess): #si los rojos y blancos de usuario y programa coinciden y no es igual a guess (porque ya sabemos que guess no es buena!!), entonces:
                 yield possible #entrega la combinacion posible basada en las nuevas condiciones
 
-    def make_guess(self, feedback, initime):#renueva el guess en base a la interaccion del usuario
+    def make_guess(self, feedback, initime):
+        """
+        renueva el codigo propuesto por el programa al usuario en base a su interaccion
+        el nuevo codigo propuesto es aquel que consigue reducir al maximo la lista de combinaciones posible restantes
+        dentro de un tiempo de 5 segundos
+        """
         min_length = float('infinity')
         best_choice = None
         deadtime = time.time()+5 #pone tiempo limite de 5 segundos para calcular otra combinacion
@@ -95,9 +117,13 @@ class MastermindDirecte():
         return best_choice
 
     def play(self):
+        """
+        Juego por linea de comandos de terminal
+        El usuario se piensa un codigo y el robot ha de adivinarlo
+        """
         choices = int(raw_input("Cantidad de colores? "), 10)
         holes = int(raw_input("Cantidad de huecos?  "), 10)
-        self.pool = self.generate_initial_pool(choices, holes)#genera una lista con todas las posibilidades sin repetir
+        self.pool = self.generate_initial_pool(choices, holes)
         self.guess = []
         for i in range(holes):
             if i < (holes/2):
@@ -110,28 +136,38 @@ class MastermindDirecte():
             close = int(raw_input("    # Bolitas blancas? "))
             feedback = self.Feedback(correct, close)
             if feedback.correct == holes:
+                print "He ganado!"
                 break
             initime = time.time()
-            self.pool = list(self.filter_pool(feedback))#renueva la lista de posibles combinaciones restantes en base a la interaccion del usuario
+            self.pool = list(self.filter_pool(feedback))
             print "{0} posibles opciones restantes. Pensando...\n".format(len(self.pool))
             self.guess = self.make_guess(feedback, initime)
-        print "\nGanaste!"
+        print "Ganaste!"
 
 class MastermindInvers():
 
-    colors = ['Rojo', 'Azul', 'Amarillo', 'Blanco', 'Plateado']
+    colors = ['Plateado', 'Azul', 'Amarillo', 'Blanco', 'Rojo']
 
     def colorToCode(self,color):
+        """
+        asigna un numero correspondiente al color
+        """
         code = self.colors.index(color)
         return code
 
     def codeToColor(self,code):
+        """
+        convierte el codgo numerico a combinacion de colores
+        """
         colors2=""
         for i in code:
             colors2 += self.colors[i]+"-"
         return colors2[:-1]
 
     def buscarRojas(self):
+        """
+        busca cuentas 'rojas' hay en el codigo propuesto, es decir, bolitas del color correcto en el sitio correcto
+        """
         for i in range(5):
             if self.codigoPrueba[i] == self.guess[i]:
                 self.rojas+=1
@@ -142,12 +178,19 @@ class MastermindInvers():
             self.guess.remove(None)
 
     def buscarBlancas(self):
+        """
+        busca cuentas 'blancas' hay en el codigo propuesto, es decir, bolitas del color correcto en el sitio incorrecto, sin repetir bolitas
+        """
         for i in self.guess:
             if i in self.codigoPrueba:
                 self.blancas+=1
                 self.codigoPrueba.remove(i)
 
     def play(self):
+        """
+        Juego por linea de comandos de terminal
+        El programa se piensa un codigo aleatorio y el usuario ha de adivinarlo
+        """
         self.codigo = [randint(0,5) for i in range(5)]
         self.guess = raw_input("Combinacion? a,b,c,d,e ")
         self.guess = self.guess.split()
@@ -167,10 +210,6 @@ class MastermindInvers():
 
 class Robot():
 
-    """
-    metodos: buscarServos, validateInput, getCurrentPosition, mover_robot, poner_bolita, quitar_bolita
-    atributos: iman
-    """
     listaHuecosColores = [
                             [[-6, -3.6, -27.4, 1], [-5.9, -0.1, -27.4, 1], [-5.9, 3.2, -27.4, 1], [-5.9, 6.3, -27.4, 1], [-5.9, 9.5, -27.4, 1]],
                             [[-3, -3.4, -27.6, 1], [-2.8, -0, -27.4, 1], [-3, 3, -27.4, 1], [-3, 6, -27.4, 1], [-3, 9.3, -27.4, 1]],
@@ -178,6 +217,7 @@ class Robot():
                             [[3.2, -3.6, -27.4, 1], [3.3, -0.3, -27.4, 1], [3.6, 3.1, -27.4, 1], [3.6, 6.1, -27.4, 1], [3.3, 9.4, -27.4, 1]],
                             [[6.6, -3.4, -27.4, 1], [6.5, -0, -27.4, 1], [6.6, 3.4, -27.4, 1], [6.6, 6.9, -27.4, 1], [6.5, 10.5, -27.4, 1]]
         ]
+
     listaHuecosRobot = [
                             [-6, -9.8, -27.3, 0],
                             [-3.2, -9.8, -27.3, 0],
@@ -186,7 +226,7 @@ class Robot():
                             [6.4, -9.5, -27.3, 0]
         ]
     """
-    en listaHuecosColores cada indice es un color llamado listaHuecosColor,
+    en listaHuecosColores cada indice es una columna de color llamado listaHuecosColor,
     dentro de listaHuecosColor cada indice es un hueco llamado listaHuecoColor,
     dentro de listaHuecoColor -> [x, y, z, ocupado/vacio]
     en listaHuecosRobot cada indice es un hueco llamado listaHuecoColor,
@@ -195,29 +235,28 @@ class Robot():
     0 significa vacio
     """
 
+    iman = Arduino()
+
     def buscarServos(self):
-        #busca los servos, los inicia e inicializa tambien el iman
-        self.iman = Arduino()
+        """
+        busca los servos y los inicia
+        La primera vez que se ejecuta guarda la configuracion en un archivo settins.yaml
+        para futuros usos, asi no hay de volver a buscar y solo carga la ultima configuracion
+        """
         parser = optparse.OptionParser()
         parser.add_option("-c", "--clean", action="store_true", dest="clean", default=False, help="Ignore the settings.yaml file if it exists and prompt for new settings.")
         (options, args) = parser.parse_args()
-        # Look for a settings.yaml file
+        #Busca el archivo settings.yaml
         settingsFile = 'settings.yaml'
         if not options.clean and os.path.exists(settingsFile):
             with open(settingsFile, 'r') as fh:
                 self.settings = yaml.load(fh)
-        # If we were asked to bypass, or don't have settings
+        #Si no lo encuentra
         else:
             self.settings = {}
             self.settings['port'] = '/dev/ttyUSB0'
             # Baud rate
-            baudRate = None
-            while not baudRate:
-                brTest = raw_input("Enter baud rate [Default: 1000000 bps]:")
-                if not brTest:
-                    baudRate = 1000000
-                else:
-                    baudRate = self.validateInput(brTest, 9600, 1000000)
+            baudRate = self.validateInput(brTest, 9600, 1000000)
             self.settings['baudRate'] = baudRate
             # Servo ID
             highestServoId = None
@@ -226,10 +265,9 @@ class Robot():
                 highestServoId = self.validateInput(hsiTest, 1, 255)
             self.settings['highestServoId'] = highestServoId
             highestServoId = self.settings['highestServoId']
-            # Establish a serial connection to the dynamixel network.
-            # This usually requires a USB2Dynamixel
+            #Establece una conexion serial con dynamixel network
+            #Requiere un USB2Dynamixel
             serial = dynamixel.SerialStream(port=self.settings['port'], baudrate=self.settings['baudRate'], timeout=1)
-            # Instantiate our network object
             net = dynamixel.DynamixelNetwork(serial)
             # Ping the range of servos that are attached
             print "Scanning for Dynamixels..."
@@ -261,6 +299,9 @@ class Robot():
             #net._dynamixel_map es un diccionario que contiene los motores accesibles con el codigo id
 
     def validateInput(self,userInput, rangeMin, rangeMax):
+        """
+        asegura que el valor introducido es un entero dentro de un intervalo
+        """
         try:
             inTest = int(userInput)
             if (inTest < rangeMin) or (inTest > rangeMax):
@@ -272,13 +313,19 @@ class Robot():
         return inTest
 
     def getCurrentPosition(self):
+        """
+        Devuelve la posicion actual en base [x,y,z] en la que se situa el robot
+        """
         pos1 = cinematica.parametroaAngulo(self.net._dynamixel_map[6].current_position)
         pos2 = cinematica.parametroaAngulo(self.net._dynamixel_map[4].current_position)
         pos3 = cinematica.parametroaAngulo(self.net._dynamixel_map[3].current_position)
         return cinematica.directa(pos1, pos2, pos3)
 
     def mover_robot(self, destination):
-        #mueve el robot a la 'destination' con la 'speed' indicad
+        """
+        Mueve al robot al destino asignado por intervalos de diferentes velocidades
+        para evitar movimientos bruscos
+        """
         ################################### nos aseguramos que 'destination' sea transforme a lista, para evitar errores de si fuese string o tuple
         destino = []
         for i in destination:
@@ -368,45 +415,15 @@ class Robot():
                 else:
                     time.sleep(0.045)
             i+=1
-        """
-        parametros_needed = cinematica.inversa(destino[0],destino[1],destino[2])
-        posicion1 = int(parametros_needed[0])
-        posicion2 = int(parametros_needed[1])
-        posicion3 = int(parametros_needed[2])
-
-        #servo principal segun base de referencia
-        self.net._dynamixel_map[6].moving_speed = speed
-        self.net._dynamixel_map[6].torque_enable = True
-        self.net._dynamixel_map[6].torque_limit = 1000
-        self.net._dynamixel_map[6].max_torque = 1023
-        self.net._dynamixel_map[6].goal_position = posicion1
-
-        #servo a la derecha del principal
-        self.net._dynamixel_map[4].moving_speed = speed
-        self.net._dynamixel_map[4].torque_enable = True
-        self.net._dynamixel_map[4].torque_limit = 1000
-        self.net._dynamixel_map[4].max_torque = 1023
-        self.net._dynamixel_map[4].goal_position = posicion2
-
-        #servo a la izquierda del principal
-        self.net._dynamixel_map[3].moving_speed =speed
-        self.net._dynamixel_map[3].torque_enable = True
-        self.net._dynamixel_map[3].torque_limit = 1000
-        self.net._dynamixel_map[3].max_torque = 1023
-        self.net._dynamixel_map[3].goal_position = posicion3
-
-        #mueve los servos a la vez
-        self.net.synchronize()
-        """
 
     def poner_bolita(self,huecoColor, huecoRobot):
         """
-        1. mover a hueco de color
-        2. encender y bajar
-        3. subir
-        4. mover a hueco de robot
-        5. bajar y apagar
-        6. subir
+        1. El robot se mueve al hueco de color correspondiente
+        2. Se enciende el electroiman y se baja el robot para coger al bolita
+        3. Se vuelve a subir el robot
+        4. Se mueve el robot al hueco del robot correspondiente
+        5. Se baja el robot para dejar al bolita y se apaga el electroiman
+        6. Se vuelve a subir el robot
         """
         ############################################## movemos el robot al huecoColor
         self.mover_robot(huecoColor)
@@ -439,12 +456,12 @@ class Robot():
 
     def quitar_bolita(self, huecoColor, huecoRobot):
         """
-        1. mover a hueco de robot
-        2. encender y bajar
-        3. subir
-        4. mover a hueco de color
-        5. bajar y apagar
-        6. subir
+        1. El robot se mueve al hueco del robot correspondiente
+        2. Se enciende el electroiman y se baja el robot para coger al bolita
+        3. Se vuelve a subir el robot
+        4. Se mueve el robot al hueco de color correspondiente
+        5. Se baja el robot para dejar al bolita y se apaga el electroiman
+        6. Se vuelve a subir el robot
         """
         ############################################## movemos el robot al huecoRobot
         self.mover_robot(huecoRobot)
@@ -475,11 +492,11 @@ class Robot():
 
     def poner_bolitas(self, guess, previousGuess):
         """
-        1. rellena el huecoRobot[0] y lo marca como ocupado
-        2. rellena el huecoRobot[1] y lo marca como ocupado
-        3. rellena el huecoRobot[2] y lo marca como ocupado
-        4. rellena el huecoRobot[3] y lo marca como ocupado
-        5. rellena el huecoRobot[4] y lo marca como ocupado
+        1. Mira si huecoRobot[0] esta vacio; si lo esta, rellena el huecoRobot[0] y lo marca como ocupado
+        2. Mira si huecoRobot[1] esta vacio; si lo esta, rellena el huecoRobot[1] y lo marca como ocupado
+        3. Mira si huecoRobot[2] esta vacio; si lo esta, rellena el huecoRobot[2] y lo marca como ocupado
+        4. Mira si huecoRobot[3] esta vacio; si lo esta, rellena el huecoRobot[3] y lo marca como ocupado
+        5. Mira si huecoRobot[4] esta vacio; si lo esta, rellena el huecoRobot[4] y lo marca como ocupado
         """
         listaHuecosRobotIndice = 0
         for bolita in guess:
@@ -537,12 +554,25 @@ class Robot():
 
 class Arduino():
     def __init__(self):
+        """
+        Inicializa la comunicacion serial con el arduino
+        """
         self.arduino=arduinoSerial.Serial('/dev/ttyACM0', 115200)
     def encender(self):
+        """
+        Activa el bloque de codigo 1 del arduino para encender el electroiman
+        """
         self.arduino.write('1')
     def apagar(self):
+        """
+        Activa el bloque de codigo 0 del arduino para apagar el electroiman
+        """
         self.arduino.write('0')
     def codigo2(self):
+        """
+        Activa el bloque de codigo 2 del arduino para escuchar
+        la respuesta de los pulsadores en modo directo
+        """
         a=True
         self.arduino.write('2')
         time.sleep(1)
@@ -558,6 +588,10 @@ class Arduino():
         respuesta=[int(i) for i in respuesta.split('|')]
         return respuesta
     def codigo5(self):
+        """
+        Activa el bloque de codigo 3 del arduino para escuchar
+        la respuesta de los pulsadores en modo inverso
+        """
         a=True
         self.arduino.write('3')
         time.sleep(1)
@@ -575,6 +609,11 @@ class Arduino():
 class JuegoDirecto(MastermindDirecte):
     robot=Robot()
     def play(self):
+        """
+        Juego por linea de comandos de terminal
+        El robot responde a la interaccion del usuario
+        El usuario se piensa un codigo y el robot ha de adivinarlo
+        """
         self.robot.buscarServos()
         choices = int(raw_input("Cantidad de colores? "), 10)
         holes = int(raw_input("Cantidad de huecos?  "), 10)
