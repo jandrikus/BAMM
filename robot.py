@@ -235,14 +235,13 @@ class Robot():
     0 significa vacio
     """
 
-    iman = Arduino()
-
     def buscarServos(self):
         """
-        busca los servos y los inicia
+        busca los servos, los inicia e inicializa el electroiman
         La primera vez que se ejecuta guarda la configuracion en un archivo settins.yaml
         para futuros usos, asi no hay de volver a buscar y solo carga la ultima configuracion
         """
+        self.iman = Arduino()
         parser = optparse.OptionParser()
         parser.add_option("-c", "--clean", action="store_true", dest="clean", default=False, help="Ignore the settings.yaml file if it exists and prompt for new settings.")
         (options, args) = parser.parse_args()
