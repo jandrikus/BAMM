@@ -18,7 +18,15 @@ int azulCounter = 0;
 int nextCounter = 0;
 
 char respuesta50[3];
-char respuesta51[9];
+char respuesta51[10];
+
+char rojo[2];
+char blanco[2];
+char amar[2];
+char plata[2];
+char azul[2];
+
+bool a;
 
 void setup() {
   pinMode(botonRojo,INPUT);
@@ -42,26 +50,29 @@ void loop() {
       analogWrite(electroiman_PWM,0);
     }
     else if (resp==50) {
-      //interaccion 4 pulsadores
-      while(nextCounter<2) {
+      a = true;
+      rojoCounter = 0;
+      blancoCounter = 0;
+      while(a) {
         //interaccion 4 pulsadores
         if (digitalRead(botonRojo) == LOW) {
           rojoCounter += 1;
-          delay(500);
+          delay(300);
         }
         else if (digitalRead(botonBlanco) == LOW) {
           blancoCounter += 1;
-          delay(500);
+          delay(300);
         }
         else if (digitalRead(botonNext) == LOW) {
-          nextCounter += 1;
-          delay(500);
+          a = false;
+          sprintf(respuesta50, "%d|%d", rojoCounter, blancoCounter);
+          Serial.write(respuesta50);
+          delay(300);
         }
         else if (digitalRead(botonReset) == LOW) {
           rojoCounter = 0;
           blancoCounter = 0;
-          nextCounter = 0;
-          delay(500);
+          delay(300);
         }
       }
       if (nextCounter == 2) {
@@ -73,51 +84,54 @@ void loop() {
       }
     }
     else if (resp==51) {
-      while(nextCounter<5) {
+      a = true;
+      sprintf(rojo,'\0');
+      sprintf(blanco,'\0');
+      sprintf(amar,'\0');
+      sprintf(azul,'\0');
+      sprintf(plata,'\0');
+      sprintf(respuesta51, '\0');   
+      while(a) {
         //interaccion 7 pulsadores
         if (digitalRead(botonRojo) == LOW) {
-          rojoCounter += 1;
-          delay(500);
+          sprintf(rojo, "%d|",4);
+          strcat(respuesta51,rojo);
+          delay(300);
         }
         else if (digitalRead(botonBlanco) == LOW) {
-          blancoCounter += 1;
-          delay(500);
+          sprintf(blanco, "%d|",3);          
+          strcat(respuesta51,blanco);
+          delay(300);
         }
         else if (digitalRead(botonAmarillo) == LOW) {
-          amarilloCounter += 1;
-          delay(500);
+          sprintf(amar, "%d|",2);          
+          strcat(respuesta51,amar);
+          delay(300);
         }
         else if (digitalRead(botonPlata) == LOW) {
-          plataCounter += 1;
-          delay(500);
+          sprintf(plata, "%d|",0);          
+          strcat(respuesta51,plata);
+          delay(300);
         }
         else if (digitalRead(botonAzul) == LOW) {
-          azulCounter += 1;
-          delay(500);
+          sprintf(azul, "%d|",1);          
+          strcat(respuesta51,azul);
+          delay(300);
         }
         else if (digitalRead(botonNext) == LOW) {
-          nextCounter += 1;
-          delay(500);
+          a = false;
+          Serial.write(respuesta51);
+          delay(300);
         }
         else if (digitalRead(botonReset) == LOW) {
-          rojoCounter = 0;
-          blancoCounter = 0;
-          plataCounter = 0;
-          amarilloCounter = 0;
-          azulCounter = 0;
-          nextCounter = 0;
-          delay(500);
+          sprintf(rojo,'\0');
+          sprintf(blanco,'\0');
+          sprintf(amar,'\0');
+          sprintf(azul,'\0');
+          sprintf(plata,'\0');
+          sprintf(respuesta51, '\0');
+          delay(300);
         }
-      }
-      if (nextCounter == 5) {
-        sprintf(respuesta51, "%d|%d|%d|%d|%d", rojoCounter, azulCounter, amarilloCounter, blancoCounter, plataCounter);
-        rojoCounter = 0;
-        blancoCounter = 0;
-        plataCounter = 0;
-        amarilloCounter = 0;
-        azulCounter = 0;
-        nextCounter = 0;
-        Serial.write(respuesta51);
       }
     }
   }
