@@ -9,7 +9,7 @@
             size: self.size
     do_default_tab: False
     TabbedPanelItem:
-        text: 'Mastermind'
+        text: 'Directo'
         BoxLayout:
             canvas:
                 Color:
@@ -39,17 +39,19 @@
                     font_size: 100
                     multiline: False
                 Button:
-                    text: 'empezar'
-                    id: btn
-                    on_release: root.empezar()
+                    text: 'Empezar (pulsadores)'
+                    id: jugar_p_directo
+                    on_release: root.jugar_p_directo()
                 Button:
-                    text: 'siguiente(pulsadores)'
-                    id: next
-                    on_release: root.continuar()
+                    text: ''
                 Button:
-                    text: 'siguiente(interfaz)'
-                    id: next
-                    on_release: root.continuar_interfaz()
+                    text: 'Empezar (interfaz)'
+                    id: empezar_i_directo
+                    on_release: root.empezar_i_directo()
+                Button:
+                    text: 'Siguiente (interfaz)'
+                    id: continuar_i_directo
+                    on_release: root.continuar_i_directo()
             BoxLayout:
                 orientation: 'vertical'
                 StackLayout:
@@ -335,45 +337,6 @@
                             text: ''
                             size_hint: 0.2, 1
     TabbedPanelItem:
-        text: 'Robot'
-        id: tab2
-        BoxLayout:
-            orientation: 'horizontal'
-            GridLayout:
-                cols: 1
-                size_hint: 0.2, 1
-                Label:
-                    text: 'prueba'
-                    text_size: self.size
-                    halign: 'center'
-                    valign: 'middle'
-                Label:
-                    text: 'prueba'
-                    text_size: self.size
-                    halign: 'center'
-                    valign: 'middle'
-                Label:
-                    text: 'prueba'
-                    text_size: self.size
-                    halign: 'center'
-                    valign: 'middle'
-                Button:
-                    text: 'Buscar Servos'
-                    size_hint: 1, 0.2
-                    on_release: root.buscarServos()
-                Button:
-                    size_hint: 1 , 0.2
-                    text: 'Reset'
-                    on_release: root.reset()
-            FloatLayout:
-                id: tab2layout
-                canvas:
-                    Color:
-                        rgb: [.230, .125, .128]
-                    Rectangle:
-                        pos: self.pos
-                        size: self.size
-    TabbedPanelItem:
         text: 'Inverso'
         id: tab3
         BoxLayout:
@@ -399,21 +362,19 @@
                     font_size: 20
                     multiline: False
                 Button:
-                    text: 'empezar'
-                    id: btn2
-                    on_release: root.empezar2()
+                    text: 'Empezar (pulsadores)'
+                    id: jugar_p_inverso
+                    on_release: root.jugar_p_inverso()
                 Button:
-                    text: 'siguiente(pulsadores)'
-                    id: next2
-                    on_release: root.continuar2()
+                    text: ''
                 Button:
-                    text: 'siguiente(interfaz)'
-                    id: next2_i
-                    on_release: root.continuar2_interfaz()
+                    text: 'Empezar (interfaz)'
+                    id: empezar_i_inverso
+                    on_release: root.empezar_i_inverso()
                 Button:
-                    text: 'empezar(interfaz)'
-                    id: btn2_i
-                    on_release: root.empezar2_interfaz()
+                    text: 'Siguiente (interfaz)'
+                    id: continuar_i_inverso
+                    on_release: root.continuar_i_inverso()
             BoxLayout:
                 orientation: 'vertical'
                 StackLayout:
