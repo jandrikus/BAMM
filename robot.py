@@ -499,26 +499,29 @@ class Robot():
         """
         listaHuecosRobotIndice = 0
         for bolita in guess:
-            ######################################## lista de los huecos del color de la bolita
-            listaHuecosColor=self.listaHuecosColores[bolita]
-            if self.listaHuecosRobot[listaHuecosRobotIndice][3] == 0:
-                ######################################## cogemos la posicion de un hueco de color ocupado y lo marcamos como vacio
-                i=0
-                a=False
-                for listaHuecoColor in listaHuecosColor:
-                    if listaHuecoColor[3] == 1 and a==False:
-                        huecoColor = listaHuecoColor[:3]
-                        self.listaHuecosColores[bolita][i][3]=0
-                        a=True
-                    i+=1
-                ######################################## cogemos la posicion del huecoRobot respectivo al indice, pensando que estan todos vacios ya
-                huecoRobot = self.listaHuecosRobot[listaHuecosRobotIndice][:3]
-                ######################################## ponemos la bolita
-                self.poner_bolita(huecoColor, huecoRobot)
-                ######################################## marcamos el huecoRobot como ocupado (y el huecoColor como vacio, hecho cuando cogimos su posicion)
-                self.listaHuecosRobot[listaHuecosRobotIndice][3]=1
-                ######################################## aumentamos el indice para ir al siguiente hueco
-            listaHuecosRobotIndice+=1
+            try:
+                ######################################## lista de los huecos del color de la bolita
+                listaHuecosColor=self.listaHuecosColores[bolita]
+                if self.listaHuecosRobot[listaHuecosRobotIndice][3] == 0:
+                    ######################################## cogemos la posicion de un hueco de color ocupado y lo marcamos como vacio
+                    i=0
+                    a=False
+                    for listaHuecoColor in listaHuecosColor:
+                        if listaHuecoColor[3] == 1 and a==False:
+                            huecoColor = listaHuecoColor[:3]
+                            self.listaHuecosColores[bolita][i][3]=0
+                            a=True
+                        i+=1
+                    ######################################## cogemos la posicion del huecoRobot respectivo al indice, pensando que estan todos vacios ya
+                    huecoRobot = self.listaHuecosRobot[listaHuecosRobotIndice][:3]
+                    ######################################## ponemos la bolita
+                    self.poner_bolita(huecoColor, huecoRobot)
+                    ######################################## marcamos el huecoRobot como ocupado (y el huecoColor como vacio, hecho cuando cogimos su posicion)
+                    self.listaHuecosRobot[listaHuecosRobotIndice][3]=1
+                    ######################################## aumentamos el indice para ir al siguiente hueco
+                listaHuecosRobotIndice+=1
+            except:
+                listaHuecosRobotIndice+=1
 
     def quitar_bolitas(self, previousGuess, guess):
         """
@@ -530,33 +533,74 @@ class Robot():
         """
         listaHuecosRobotIndice = 0
         for bolita in previousGuess:
-            if self.listaHuecosRobot[listaHuecosRobotIndice][3] == 1 and bolita!=guess[listaHuecosRobotIndice]:
-                ######################################## lista de los huecos del color de la bolita
-                listaHuecosColor=self.listaHuecosColores[bolita]
-                ######################################## cogemos la posicion de un hueco de color vacio y lo marcamos como ocupado
-                i=0
-                a=False
-                for listaHuecoColor in listaHuecosColor:
-                    if listaHuecoColor[3] == 0 and a==False:
-                        huecoColor = listaHuecoColor[:3]
-                        self.listaHuecosColores[bolita][i][3]=1
-                        a=True
-                    i+=1
-                ######################################## cogemos la posicion del huecoRobot respectivo al indice
-                huecoRobot = self.listaHuecosRobot[listaHuecosRobotIndice][:3]
-                ######################################## quitamos la bolita
-                self.quitar_bolita(huecoColor, huecoRobot)
-                ######################################## marcamos el huecoRobot como libre (y el huecoColor como vacio, hecho cuando cogimos su posicion)
-                self.listaHuecosRobot[listaHuecosRobotIndice][3]=0
-                ######################################## aumentamos el indice para ir al siguiente hueco
-            listaHuecosRobotIndice+=1
+            try:
+                if self.listaHuecosRobot[listaHuecosRobotIndice][3] == 1 and bolita!=guess[listaHuecosRobotIndice]:
+                    ######################################## lista de los huecos del color de la bolita
+                    listaHuecosColor=self.listaHuecosColores[bolita]
+                    ######################################## cogemos la posicion de un hueco de color vacio y lo marcamos como ocupado
+                    i=0
+                    a=False
+                    for listaHuecoColor in listaHuecosColor:
+                        if listaHuecoColor[3] == 0 and a==False:
+                            huecoColor = listaHuecoColor[:3]
+                            self.listaHuecosColores[bolita][i][3]=1
+                            a=True
+                        i+=1
+                    ######################################## cogemos la posicion del huecoRobot respectivo al indice
+                    huecoRobot = self.listaHuecosRobot[listaHuecosRobotIndice][:3]
+                    ######################################## quitamos la bolita
+                    self.quitar_bolita(huecoColor, huecoRobot)
+                    ######################################## marcamos el huecoRobot como libre (y el huecoColor como vacio, hecho cuando cogimos su posicion)
+                    self.listaHuecosRobot[listaHuecosRobotIndice][3]=0
+                    ######################################## aumentamos el indice para ir al siguiente hueco
+                listaHuecosRobotIndice+=1
+            except:
+                listaHuecosRobotIndice+=1
+
+    def celebrar(self):
+        ################################### nos aseguramos que 'destination' sea transforme a lista, para evitar errores de si fuese string o tuple
+        self.mover_robot([15, 0, -24])
+        for i in range(0,360,4)
+            x=15*math.cos(math.pi()*i/180)
+            y=15*math.sin(math.pi()*i/180)
+            z=-24
+
+            parametros_needed = cinematica.inversa(x,y,z)
+            posicion1 = int(parametros_needed[0])
+            posicion2 = int(parametros_needed[1])
+            posicion3 = int(parametros_needed[2])
+
+            #servo principal segun base de referencia
+            self.net._dynamixel_map[6].moving_speed = 500
+            self.net._dynamixel_map[6].torque_enable = True
+            self.net._dynamixel_map[6].torque_limit = 1023
+            self.net._dynamixel_map[6].max_torque = 1023
+            self.net._dynamixel_map[6].goal_position = posicion1
+
+            #servo a la derecha del principal
+            self.net._dynamixel_map[4].moving_speed = 500
+            self.net._dynamixel_map[4].torque_enable = True
+            self.net._dynamixel_map[4].torque_limit = 1023
+            self.net._dynamixel_map[4].max_torque = 1023
+            self.net._dynamixel_map[4].goal_position = posicion2
+
+            #servo a la izquierda del principal
+            self.net._dynamixel_map[3].moving_speed = 500
+            self.net._dynamixel_map[3].torque_enable = True
+            self.net._dynamixel_map[3].torque_limit = 1023
+            self.net._dynamixel_map[3].max_torque = 1023
+            self.net._dynamixel_map[3].goal_position = posicion3
+
+            #mueve los servos a la vez
+            self.net.synchronize()
+            time.sleep(0.01)
 
 class Arduino():
     def __init__(self):
         """
         Inicializa la comunicacion serial con el arduino
         """
-        self.arduino=arduinoSerial.Serial('/dev/ttyACM0', 115200)
+        self.arduino=arduinoSerial.Serial('/dev/ttyACM1', 115200)
     def encender(self):
         """
         Activa el bloque de codigo 1 del arduino para encender el electroiman
@@ -598,11 +642,12 @@ class Arduino():
         while a:
             try:
                 respuesta += self.arduino.read()
-                if len(respuesta)==9:
+                print respuesta
+                if len(respuesta)==11:
                     a=False
             except:
                 print 'El arduino no lee nada coherente con lo deseado'
-        respuesta=[int(i) for i in respuesta.split('|')]
+        respuesta=[int(i) for i in respuesta[1:-1].split('|')]
         return respuesta
 
 class JuegoDirecto(MastermindDirecte):
