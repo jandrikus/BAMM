@@ -61,6 +61,86 @@ Robot delta interactivo capaz de jugar al mastermind.
   - Return type: None
 
 ###### (class) MastermindInvers
+- (method) colorToCode(color)
+  - Asigna un número correspondiente al color
+  - Parámetros: (str) color
+  - Return type: (int)
+- (method) codeToColor(code)
+  - Convierte el código numérico a una combinación de colores
+  - Parámetros: (int) code
+  - Return type: (str)
+- (method) buscarRojas()
+  - Busca cuantas 'rojas' hay en el código propuesto, es decir, bolitas del color correcto en el sitio correcto
+  - Parámetros: None
+  - Return type: None
+- (method) buscarBlancas()
+  - Busca cuentas 'blancas' hay en el código propuesto, es decir, bolitas del color correcto en el sitio incorrecto, sin repetir bolitas
+  - Parámetros: None
+  - Return type: None
+- (method) play()
+  - Juego por línea de comandos de terminal. El programa se piensa un código aleatorio y el usuario ha de adivinarlo
+  - Parámetros: None
+  - Return type: None
+
 ###### (class) Robot
+- (method) buscarServos()
+  - Busca los servos, los inicia e inicializa el electroimán. La primera vez que se ejecuta guarda la configuración en un archivo settins.yaml para futuros usos, así no ha de volver a buscar y sólo carga la última configuración
+  - Parámetros: None
+  - Return type: None
+- (method) validateInput(userInput, rangeMin, rangeMax)
+  - Asegura que el valor introducido es un entero dentro de un intervalo
+  - Parámetros: (any) userInput, (int) rangeMin, (int) rangeMax
+  - Return type: (int) or None
+- (method) getCurrentPosition()
+  - Devuelve la posición actual en base [x,y,z] en la que se sitúa el robot
+  - Parámetros: None
+  - Return type: (list)
+- (method) mover_robot(destination)
+  - Mueve al robot al destino asignado por intervalos de diferentes velocidades para evitar movimientos bruscos
+  - Parámetros: (tup) or (list) destination
+  - Return type: None
+- (method) poner_bolita(huecoColor, huecoRobot)
+  - 
+      1. El robot se mueve al hueco de color correspondiente
+      2. Se enciende el electroimán y se baja el robot para coger al bolita
+      3. Se vuelve a subir el robot
+      4. Se mueve el robot al hueco del robot correspondiente
+      5. Se baja el robot para dejar al bolita y se apaga el electroimán
+      6. Se vuelve a subir el robot
+  - Parámetros: (list) huecoColor, (list) huecoRobot
+  - Return type: None
+- (method) quitar_bolita(huecoColor, huecoRobot)
+  - 
+      1. El robot se mueve al hueco del robot correspondiente
+      2. Se enciende el electroimán y se baja el robot para coger al bolita
+      3. Se vuelve a subir el robot
+      4. Se mueve el robot al hueco de color correspondiente
+      5. Se baja el robot para dejar al bolita y se apaga el electroimán
+      6. Se vuelve a subir el robot
+  - Parámetros: (list) huecoColor, (list) huecoRobot
+  - Return type: None
+- (method) poner_bolitas(guess, previousGuess)
+  - 
+      1. Mira si huecoRobot[0] está vacío; si lo está, rellena el huecoRobot[0] y lo marca como ocupado
+      2. Mira si huecoRobot[1] está vacío; si lo está, rellena el huecoRobot[1] y lo marca como ocupado
+      3. Mira si huecoRobot[2] está vacío; si lo está, rellena el huecoRobot[2] y lo marca como ocupado
+      4. Mira si huecoRobot[3] está vacío; si lo está, rellena el huecoRobot[3] y lo marca como ocupado
+      5. Mira si huecoRobot[4] está vacío; si lo está, rellena el huecoRobot[4] y lo marca como ocupado
+  - Parámetros: (list) guess, (list) previousGuess
+  - Return type: None
+- (method) quitar_bolitas(previousGuess, guess)
+  - 
+      1. Mira si huecoRobot[0] está vacío; si no lo está, quita la bolita | si la bolita ya es correcta, no hace nada
+      2. Mira si huecoRobot[1] está vacío; si no lo está, quita la bolita | si la bolita ya es correcta, no hace nada
+      3. Mira si huecoRobot[2] está vacío; si no lo está, quita la bolita | si la bolita ya es correcta, no hace nada
+      4. Mira si huecoRobot[3] está vacío; si no lo está, quita la bolita | si la bolita ya es correcta, no hace nada
+      5. Mira si huecoRobot[4] está vacío; si no lo está, quita la bolita | si la bolita ya es correcta, no hace nada
+  - Parámetros: (list) previousGuess, (list) guess
+  - Return type: None
+- (method) celebrar()
+  - Para celebrar que el robot ha ganado la partida, recorre una circumferencia en un plano
+  - Parámetros: None
+  - Return type: None
+
 ###### (class) Arduino
 ###### (class) JuegoDirecto
