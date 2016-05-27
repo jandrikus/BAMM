@@ -24,8 +24,9 @@ class Inverso(MastermindInvers):
         Complementa la funcion empezar del juego inverso
         Se piensa un codigo aleatorio el cual el usuario ha de adivinar
         """
-        self.codigo = [randint(0,5) for i in range(5)]
+        self.codigo = [randint(0,4) for i in range(5)]
         print 'ready'
+        print self.codigo
 
     def continuar(self, guess):
         """
@@ -76,9 +77,11 @@ class Delta(MastermindDirecte, TabbedPanel):
             matrizOcupados = [int(i) for i in huecos]
             for i in range(5):
                 for e in range(5):
-                    self.listaHuecosColores[i][e][3]=matrizOcupados.pop()
+                    p=matrizOcupados.pop()
+                    self.robot.listaHuecosColores[i][e][3]=p
             for i in range(5):
-                self.listaHuecosRobot[i][3]=matrizOcupados.pop()
+                p=matrizOcupados.pop()
+                self.robot.listaHuecosRobot[i][3]=p
             ultimoCodigo.close()
             #########################################aqui ha de venir el movimiento de bolitas!!!!
             self.robot.quitar_bolitas(codigo, self.guess)
@@ -159,7 +162,7 @@ class Delta(MastermindDirecte, TabbedPanel):
     	self.pool = self.generate_initial_pool(choices, holes)#genera una lista con todas las posibilidades sin repetir
     	self.guess = []
     	for i in range(holes):
-            self.guess +=[4]
+            self.guess =[0,0,1,1,1]
         print "Try this: {0}".format(self.codeToColor(self.guess))
         self.ids.textprueba.text = "Try this:"#genera una combinacion cualquiera primera
         huecoX = 'hueco'+str(self.linea)
@@ -176,9 +179,11 @@ class Delta(MastermindDirecte, TabbedPanel):
             matrizOcupados = [int(i) for i in huecos]
             for i in range(5):
                 for e in range(5):
-                    self.listaHuecosColores[i][e][3]=matrizOcupados.pop()
+                    p=matrizOcupados.pop()
+                    self.robot.listaHuecosColores[i][e][3]=p
             for i in range(5):
-                self.listaHuecosRobot[i][3]=matrizOcupados.pop()
+                p=matrizOcupados.pop()
+                self.robot.listaHuecosRobot[i][3]=p
             ultimoCodigo.close()
             #########################################aqui ha de venir el movimiento de bolitas!!!!
             self.robot.quitar_bolitas(codigo, self.guess)
@@ -276,8 +281,7 @@ class Delta(MastermindDirecte, TabbedPanel):
             self.nuevas[i]=4
         for i in range(blancas2):
             self.nuevas[i+rojas2]=3
-        print self.nuevas
-        print self.viejas
+        self.viejas = [None, None, None, None, None]
         huecoX = '2hueco'+str(self.linea2)
         for y in range(5):
             huecoXY=huecoX+str(y)
@@ -293,9 +297,11 @@ class Delta(MastermindDirecte, TabbedPanel):
             matrizOcupados = [int(i) for i in huecos]
             for i in range(5):
                 for e in range(5):
-                    self.listaHuecosColores[i][e][3]=matrizOcupados.pop()
+                    p=matrizOcupados.pop()
+                    self.robot.listaHuecosColores[i][e][3]=p
             for i in range(5):
-                self.listaHuecosRobot[i][3]=matrizOcupados.pop()
+                p=matrizOcupados.pop()
+                self.robot.listaHuecosRobot[i][3]=p
             ultimoCodigo.close()
             #########################################aqui ha de venir el movimiento de bolitas!!!!
             self.robot.quitar_bolitas(codigo, self.nuevas)
@@ -347,7 +353,7 @@ class Delta(MastermindDirecte, TabbedPanel):
                     s+='{0},'.format(listaHuecoColor[3])
             for listaHuecoRobot in self.robot.listaHuecosRobot:
                 s+='{0},'.format(listaHuecoRobot[3])
-            ultimoCodigo.write('{0}|{1}|{2}|{3}|{4}|{5}'.format(self.guess[0],self.guess[1],self.guess[2],self.guess[3],self.guess[4],s[:-1]))
+            ultimoCodigo.write('{0}|{1}|{2}|{3}|{4}|{5}'.format(self.nuevas[0],self.nuevas[1],self.nuevas[2],self.nuevas[3],self.nuevas[4],s[:-1]))
             ultimoCodigo.close()
             self.ids['2textrojo'+str(self.linea2)].text = str(rojas2)
             self.ids['2textblanco'+str(self.linea2)].text = str(blancas2)
@@ -387,9 +393,11 @@ class Delta(MastermindDirecte, TabbedPanel):
             matrizOcupados = [int(i) for i in huecos]
             for i in range(5):
                 for e in range(5):
-                    self.listaHuecosColores[i][e][3]=matrizOcupados.pop()
+                    p=matrizOcupados.pop()
+                    self.robot.listaHuecosColores[i][e][3]=p
             for i in range(5):
-                self.listaHuecosRobot[i][3]=matrizOcupados.pop()
+                p=matrizOcupados.pop()
+                self.robot.listaHuecosRobot[i][3]=p
             ultimoCodigo.close()
             #########################################aqui ha de venir el movimiento de bolitas!!!!
             self.robot.quitar_bolitas(codigo, self.nuevas)
@@ -445,7 +453,7 @@ class Delta(MastermindDirecte, TabbedPanel):
                 s+='{0},'.format(listaHuecoColor[3])
         for listaHuecoRobot in self.robot.listaHuecosRobot:
             s+='{0},'.format(listaHuecoRobot[3])
-        ultimoCodigo.write('{0}|{1}|{2}|{3}|{4}|{5}'.format(self.guess[0],self.guess[1],self.guess[2],self.guess[3],self.guess[4],s[:-1]))
+        ultimoCodigo.write('{0}|{1}|{2}|{3}|{4}|{5}'.format(self.nuevas[0],self.nuevas[1],self.nuevas[2],self.nuevas[3],self.nuevas[4],s[:-1]))
         ultimoCodigo.close()
         self.ids['2textrojo'+str(self.linea2)].text = str(rojas2)
         self.ids['2textblanco'+str(self.linea2)].text = str(blancas2)
