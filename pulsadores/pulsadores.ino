@@ -12,9 +12,6 @@ const int electroiman_PWM = 11;
 // contadores de cuantas veces se ha pulsado tal pulsador
 int rojoCounter = 0;
 int blancoCounter = 0;
-int plataCounter = 0;
-int amarilloCounter = 0;
-int azulCounter = 0;
 int nextCounter = 0;
 
 char respuesta50[3];
@@ -75,13 +72,6 @@ void loop() {
           delay(300);
         }
       }
-      if (nextCounter == 2) {
-        sprintf(respuesta50, "%d|%d", rojoCounter, blancoCounter);
-        rojoCounter = 0;
-        blancoCounter = 0;
-        nextCounter = 0;
-        Serial.write(respuesta50);
-      }
     }
     else if (resp==51) {
       a = true;
@@ -99,7 +89,7 @@ void loop() {
           delay(300);
         }
         else if (digitalRead(botonBlanco) == LOW) {
-          sprintf(blanco, "%d|",3);          
+          sprintf(blanco, "%d|",3);  
           strcat(respuesta51,blanco);
           delay(300);
         }
