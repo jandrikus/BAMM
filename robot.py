@@ -560,10 +560,10 @@ class Robot():
     def celebrar(self):
         ################################### nos aseguramos que 'destination' sea transforme a lista, para evitar errores de si fuese string o tuple
         self.mover_robot([15, 0, -24])
-        for i in range(0,360,4)
-            x=15*math.cos(math.pi()*i/180)
-            y=15*math.sin(math.pi()*i/180)
-            z=-24
+        for i in range(0,360,4):
+            x=10.0*math.cos(math.pi()*i/180.0)
+            y=10.0*math.sin(math.pi()*i/180.0)
+            z=-24.0
 
             parametros_needed = cinematica.inversa(x,y,z)
             posicion1 = int(parametros_needed[0])
@@ -600,7 +600,7 @@ class Arduino():
         """
         Inicializa la comunicacion serial con el arduino
         """
-        self.arduino=arduinoSerial.Serial('/dev/ttyACM1', 115200)
+        self.arduino=arduinoSerial.Serial('/dev/ttyACM0', 115200)
     def encender(self):
         """
         Activa el bloque de codigo 1 del arduino para encender el electroiman
@@ -627,7 +627,7 @@ class Arduino():
                     a=False
             except:
                 print 'El arduino no lee nada coherente con lo deseado'
-                time.sleep(1)
+                time.sleep(0.5)
         respuesta=[int(i) for i in respuesta.split('|')]
         return respuesta
     def codigo5(self):
@@ -646,7 +646,9 @@ class Arduino():
                 if len(respuesta)==11:
                     a=False
             except:
+                a=True
                 print 'El arduino no lee nada coherente con lo deseado'
+                time.sleep(1)
         respuesta=[int(i) for i in respuesta[1:-1].split('|')]
         return respuesta
 
