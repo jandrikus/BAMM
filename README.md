@@ -5,9 +5,9 @@ Robot delta interactivo capaz de jugar al mastermind.
 - Software:
   - Python 2.7
   - Librerías de Python:
-    - Pydynamixel (https://github.com/iandanforth/pydynamixel)
-    - PySerial (http://pyserial.sourceforge.net/)
-    - Kivy (versión 1.9.1+) (https://kivy.org)
+    - [Pydynamixel](https://github.com/iandanforth/pydynamixel)
+    - [PySerial](http://pyserial.sourceforge.net/)
+    - [Kivy (versión 1.9.1+)](https://kivy.org)
 - Hardware:
   - Arduino con Motor Shield (se ha usado Arduino Uno)
   - 3 servo motores (se ha usado AX-12+)
