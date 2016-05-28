@@ -125,6 +125,7 @@ class Delta(MastermindDirecte, TabbedPanel):
         ########################################## termina respuesta
         """
         self.linea+=1
+        arduino.write('2')
         Clock.schedule_interval(self.respuesta_d_arduino, 1)# respuesta del arduino
         respuesta = self.respuesta_d
         correct = respuesta[0]
@@ -292,6 +293,7 @@ class Delta(MastermindDirecte, TabbedPanel):
         self.linea2 = 0
         self.inv.empezar()
         self.linea2+=1
+        arduino.write('3')
         Clock.schedule_interval(self.respuesta_i_arduino, 1)# respuesta del arduino
         guess2 = self.respuesta_i_arduino
         print guess2
@@ -361,6 +363,7 @@ class Delta(MastermindDirecte, TabbedPanel):
 
     def continuar_p_inverso(self):
         self.linea2+=1
+        arduino.write('3')
         Clock.schedule_interval(self.respuesta_i_arduino, 1)# respuesta del arduino
         guess2 = self.respuesta_i_arduino
         print guess2
