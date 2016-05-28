@@ -44,9 +44,9 @@ class Inverso(MastermindInvers):
 
 class Delta(MastermindDirecte, TabbedPanel):
     text_input = ObjectProperty(None)
-    colors = ['Plata', 'Azul', 'Verde', 'Blanco', 'Rojo']
-    #red = (255, 0, 0, 1) azul = (0, 100, 250, 1) amari = (255, 255, 0, 1) white = (255, 255, 255, 1) gris = (128, 128, 128, 1)
-    colorsrgba = [(128, 128, 128, 1),(0, 100, 250, 1),(255, 255, 0, 1),(255, 255, 255, 1),(255, 0, 0, 1)]
+    colors = ['Negro', 'Azul', 'Verde', 'Blanco', 'Rojo']
+    #red = (255, 0, 0, 1) azul = (0, 100, 250, 1) amari = (255, 255, 0, 1) white = (255, 255, 255, 1) negro = (0, 0, 0, 1)
+    colorsrgba = [(0, 0, 0, 1),(0, 100, 250, 1),(255, 255, 0, 1),(255, 255, 255, 1),(255, 0, 0, 1)]
     robot=Robot()
     robot.buscarServos()
     inv = Inverso()
