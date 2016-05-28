@@ -165,3 +165,26 @@ Robot delta interactivo capaz de jugar al mastermind.
   - Juego por línea de comandos de terminal. El robot responde a la interacción del usuario. El usuario se piensa un código y el robot ha de adivinarlo
   - Parámetros: None
   - Return type: None
+
+#### cinematica.py
+- (function) directa(theta1, theta2, theta3)
+  - Devuelve la posición del robot en base [x,y,x] respecto de los valores del ángulo de las brazos. Ángulo positivo hacia arriba, ángulo negativo hacia abajo
+  - Parámetros: (float) theta1, (float) theta2, (float) theta3
+  - Return type: (list)
+- (function) angulos(x0,y0,z0)
+  - Calcula el valor del ángulo de un brazo respecto del valor de la posición
+  - Parámetros: (float) x0, (float) y0, (float) z0
+  - Return type: (float)
+- (function) inversa(x0,y0,z0)
+  - Transforma con rotaciones los cálculos hechos para el valor del ángulo de un brazo y devuelve el ángulo de cada brazo
+  - Parámetros: (float) x0, (float) y0, (float) z0
+  - Return type: (list)
+- (function) anguloaParametro(angulo)
+  - Convierte el valor del ángulo en un parámetro entero de 0 a 1023
+  - Parámetros: (float) angulo
+  - Return type: (int)
+- (function) parametroaAngulo(parametro)
+  - Convierte el parámetro en un valor del ángulo
+  - Parámetros: (int) parametro
+  - Return type: (float)
+
