@@ -558,6 +558,9 @@ class Robot():
                 listaHuecosRobotIndice+=1
 
     def celebrar(self):
+        """
+        Para celebrar que el robot ha ganado la partida, recorre una circumferencia en un plano
+        """
         ################################### nos aseguramos que 'destination' sea transforme a lista, para evitar errores de si fuese string o tuple
         self.mover_robot([15, 0, -24])
         for i in range(0,360,4):
