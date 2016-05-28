@@ -18,10 +18,10 @@ Robot delta interactivo capaz de jugar al mastermind.
 
 #### Arranque
 
-1. Descargar todos los archivos de python y el programa de arduino
+1. Descargar todos los archivos en una carpeta
 2. Conectar arduino y USB2Dynamixel al ordenador
 3. Enviar el programa pulsadores.ino al arduino
-4. Ejecutar donde has descargado los archivos
+4. Ejecutar dentro de la carpeta
       
     $ sudo python deltaApp.py
 5. Si es la primera vez que se inicia, pedirá buscar los Servos. En tal caso, hay que seguir las intrucciones referentes a settings.yaml
