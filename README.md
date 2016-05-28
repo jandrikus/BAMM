@@ -24,7 +24,6 @@ Robot delta interactivo capaz de jugar al mastermind.
 4. Ejecutar donde has descargado los archivos
 
     $ sudo python deltaApp.py
-
 5. Si es la primera vez que se inicia, pedirá buscar los Servos. En tal caso, hay que seguir las intrucciones referentes a settings.yaml
 6. Ya se puede jugar. Es recomendable leer previamente las intrucciones de la interfaz
 
