@@ -143,4 +143,25 @@ Robot delta interactivo capaz de jugar al mastermind.
   - Return type: None
 
 ###### (class) Arduino
+- (method) encender()
+  - Activa el bloque de código 1 del arduino para encender el electroimán
+  - Parámetros: None
+  - Return type: None
+- (method) apagar()
+  - Activa el bloque de código 0 del arduino para apagar el electroimán
+  - Parámetros: None
+  - Return type: None
+- (method) codigo2()
+  - Activa el bloque de código 2 del arduino para escuchar la respuesta de los pulsadores en modo directo
+  - Parámetros: None
+  - Return type: (list)
+- (method) codigo5()
+  - Activa el bloque de código 3 del arduino para escuchar la respuesta de los pulsadores en modo inverso
+  - Parámetros: None
+  - Return type: (list)
+
 ###### (class) JuegoDirecto
+- (method) play()
+  - Juego por línea de comandos de terminal. El robot responde a la interacción del usuario. El usuario se piensa un código y el robot ha de adivinarlo
+  - Parámetros: None
+  - Return type: None
