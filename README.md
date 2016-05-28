@@ -27,7 +27,7 @@ Robot delta interactivo capaz de jugar al mastermind.
   - Convierte el código numérico a una combinación de colores
   - Parámetros: (int) code
   - Return type: (str)
-- (method) def generate_initial_pool(choices, holes):
+- (method) generate_initial_pool(choices, holes):
   - Crea una lista que contiene todas las posibles combinaciones numéricas en tuples
   - Parámetros: (int) choices, (int) holes
   - Return type: list
@@ -187,4 +187,65 @@ Robot delta interactivo capaz de jugar al mastermind.
   - Convierte el parámetro en un valor del ángulo
   - Parámetros: (int) parametro
   - Return type: (float)
+
+#### deltaApp.py
+###### (class) Delta()
+- (method) jugar_p_directo()
+  - Empieza el juego directo con un primer movimiento. Si el checkbox está marcado, el programa carga la última configuración guardada y primero limpia el tablero y luego empieza. Continúa cada turno del juego, requiere la respuesta del usuario por pulsadores. Siempre guarda la última configuracion del robot para siguientes inicios después de cada movimiento
+  - Parámetros: None
+  - Return type: None
+- (method) continuar_p_directo()
+  - Función complementaria de jugar_p_directo() que permite avanzar de turno
+  - Parámetros: None
+  - Return type: None
+- (method) empezar_i_directo():
+  - Empieza el juego directo con un primer movimiento. Si el checkbox está marcado, el programa carga la última configuración guardada y primero limpia el tablero y luego empieza. Sólo puede jugarse vía interfaz.
+  - Parámetros: None
+  - Return type: None
+- (method) continuar_i_directo()
+  - Continúa un turno del juego directo, requiere la respuesta del usuario por texto de interfaz. Siempre guarda la última configuración del robot para siguientes inicios después de cada movimiento
+  - Parámetros: None
+  - Return type: None
+- (method) jugar_p_inverso()
+  - Empieza el juego inverso con un primer movimiento. Si el checkbox está marcado, el programa carga la última configuración guardada y primero limpia el tablero y luego empieza. Continúa cada turno del juego, requiere la respuesta del usuario por pulsadores. Siempre guarda la última configuracion del robot para siguientes inicios después de cada movimiento
+  - Parámetros: None
+  - Return type: None
+- (method) continuar_p_inverso()
+  - Función complementaria de jugar_p_inversp() que permite avanzar de turno
+  - Parámetros: None
+  - Return type: None
+- (method) empezar_i_inverso()
+  - Empieza el juego inverso con un primer movimiento. Si el checkbox está marcado, el programa carga la última configuración guardada y primero limpia el tablero y luego empieza. Sólo puede jugarse vía interfaz.
+  - Parámetros: None
+  - Return type: None
+- (method) continuar_i_inverso()
+  - Continúa un turno del juego inverso, requiere la respuesta del usuario por texto de interfaz. Siempre guarda la última configuración del robot para siguientes inicios después de cada movimiento
+  - Parámetros: None
+  - Return type: None
+- (method) respuesta_d_arduino(dt)
+  - Escucha  y devuelve la respuesta de los pulsadores en modo de juego directo
+  - Parámetros: (float) dt
+  - Return type: (bool)
+- (method) respuesta_i_arduino(dt)
+  - Escucha  y devuelve la respuesta de los pulsadores en modo de juego inverso
+  - Parámetros: (float) dt
+  - Return type: (bool)
+- (method) esperar(dt)
+  - Espera 1 segundo
+  - Parámetros: (float) dt
+  - Return type: None
+- (method) on_checkbox_active(checkbox, value)
+  - Mira si el checkbox está marcado
+  - Parámetros: (CheckBox) checkbox, (bool) value
+  - Return type: (bool)
+
+###### (class) Inverso()
+- (method) empezar()
+  - Complementa la función empezar del juego inverso. Se piensa un código aleatorio, el cual el usuario ha de adivinar
+  - Parámetros: None
+  - Return type: None
+- (method) continuar(guess)
+  - Complementa la función continuar al siguiente turno del juego inverso. Calcula la respuesta del robot ante el código propuestp por el usuario
+  - Parámetros: (list) guess
+  - Return type: (tup)
 
