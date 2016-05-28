@@ -62,7 +62,7 @@ void loop() {
         }
         else if (digitalRead(botonNext) == LOW) {
           a = false;
-          sprintf(respuesta50, "%d|%d", rojoCounter, blancoCounter);
+          sprintf(respuesta50, "%d|%d\n", rojoCounter, blancoCounter);
           Serial.write(respuesta50);
           delay(300);
         }
@@ -80,7 +80,7 @@ void loop() {
       sprintf(amar,'\0');
       sprintf(azul,'\0');
       sprintf(plata,'\0');
-      sprintf(respuesta51, '\0');   
+      sprintf(respuesta51, '\0');
       while(a) {
         //interaccion 7 pulsadores
         if (digitalRead(botonRojo) == LOW) {
@@ -89,27 +89,28 @@ void loop() {
           delay(300);
         }
         else if (digitalRead(botonBlanco) == LOW) {
-          sprintf(blanco, "%d|",3);  
+          sprintf(blanco, "%d|",3);
           strcat(respuesta51,blanco);
           delay(300);
         }
         else if (digitalRead(botonAmarillo) == LOW) {
-          sprintf(amar, "%d|",2);          
+          sprintf(amar, "%d|",2);
           strcat(respuesta51,amar);
           delay(300);
         }
         else if (digitalRead(botonPlata) == LOW) {
-          sprintf(plata, "%d|",0);          
+          sprintf(plata, "%d|",0);
           strcat(respuesta51,plata);
           delay(300);
         }
         else if (digitalRead(botonAzul) == LOW) {
-          sprintf(azul, "%d|",1);          
+          sprintf(azul, "%d|",1);
           strcat(respuesta51,azul);
           delay(300);
         }
         else if (digitalRead(botonNext) == LOW) {
           a = false;
+          strcat(respuesta51, "\n")
           Serial.write(respuesta51);
           delay(300);
         }
@@ -126,4 +127,3 @@ void loop() {
     }
   }
 }
-
