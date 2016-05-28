@@ -12,9 +12,28 @@ Robot delta interactivo capaz de jugar al mastermind.
   - Arduino con Motor Shield (se ha usado Arduino Uno)
   - 3 servo motores (se ha usado AX-12+)
   - Módulo USB2Dynamixel para conectar servo motores al ordenador
-  - Placa de fibra de vídreo con 7 pulsadores
+  - Placa de fibra de vidrio con 7 pulsadores
 
 ## Manual de usuario
+
+#### Arranque
+
+1. Descargar todos los archivos de python y el programa de arduino
+2. Conectar arduino y USB2Dynamixel al ordenador
+3. Enviar el programa pulsadores.ino al arduino
+4. Ejecutar donde has descargado los archivos
+
+    $ sudo python deltaApp.py
+
+5. Si es la primera vez que se inicia, pedirá buscar los Servos. En tal caso, hay que seguir las intrucciones referentes a settings.yaml
+6. Ya se puede jugar. Es recomendable leer previamente las intrucciones de la interfaz
+
+#### settings.yaml
+
+#### ultimoCodigo
+
+#### Interfaz
+
 ## Documentación
 #### robot.py
 
