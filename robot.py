@@ -211,11 +211,11 @@ class MastermindInvers():
 class Robot():
 
     listaHuecosColores = [
-                            [[-6, -3.6, -27.4, 1], [-5.9, -0.1, -27.4, 1], [-5.9, 3.2, -27.4, 1], [-5.9, 6.3, -27.4, 1], [-5.9, 9.5, -27.4, 1]],
+                            [[-6, -3.6, -27.4, 1], [-5.9, -0.1, -27.6, 1], [-6.1, 2.6, -27.4, 1], [-6.1, 6, -27.4, 1], [-6.2, 8.7, -27.4, 1]],
                             [[-3, -3.4, -27.6, 1], [-2.8, -0, -27.4, 1], [-3, 3, -27.4, 1], [-3, 6, -27.4, 1], [-3, 9.3, -27.4, 1]],
-                            [[0, -3.6, -27.4, 1], [0.2, -0.5, -27.5, 1], [0.4, 3.2, -27.4, 1], [0.4, 6.4, -27.4, 1], [0.2, 9.3, -27.4, 1]],
-                            [[3.2, -3.6, -27.4, 1], [3.3, -0.3, -27.4, 1], [3.6, 3.1, -27.4, 1], [3.6, 6.1, -27.4, 1], [3.3, 9.4, -27.4, 1]],
-                            [[6.6, -3.4, -27.4, 1], [6.5, -0, -27.4, 1], [6.6, 3.4, -27.4, 1], [6.6, 6.9, -27.4, 1], [6.5, 10.5, -27.4, 1]]
+                            [[0.2, -3.5, -27.4, 1], [0.2, -0.5, -27.5, 1], [0.4, 3.2, -27.4, 1], [0.4, 6.4, -27.4, 1], [0.2, 9.3, -27.4, 1]],
+                            [[3.2, -3.6, -27.4, 1], [3.3, -0.3, -27.4, 1], [3.6, 3, -27.4, 1], [3.6, 6.1, -27.4, 1], [3.3, 9.4, -27.4, 1]],
+                            [[6.6, -3.4, -27.4, 1], [6.5, -0, -27.4, 1], [6.6, 3.2, -27.4, 1], [6.6, 6.6, -27.4, 1], [6.5, 10, -27.4, 1]]
         ]
 
     listaHuecosRobot = [
@@ -255,7 +255,7 @@ class Robot():
             self.settings = {}
             self.settings['port'] = '/dev/ttyUSB0'
             # Baud rate
-            baudRate = self.validateInput(brTest, 9600, 1000000)
+            baudRate = self.validateInput(1000000, 9600, 1000000)
             self.settings['baudRate'] = baudRate
             # Servo ID
             highestServoId = None
@@ -563,10 +563,14 @@ class Robot():
         """
         ################################### nos aseguramos que 'destination' sea transforme a lista, para evitar errores de si fuese string o tuple
         self.mover_robot([10, 0, -24])
+        self.mover_robot([-10, 0, -24])
+        self.mover_robot([0, 10, -24])
+        self.mover_robot([0, -10, -24])
+        """
         for i in range(0,360,4):
-            x=10.0*math.cos(math.pi()*i/180.0)
-            y=10.0*math.sin(math.pi()*i/180.0)
-            z=-24.0
+            x=10*math.cos(math.pi()*i/180)
+            y=10*math.sin(math.pi()*i/180)
+            z=-24
 
             parametros_needed = cinematica.inversa(x,y,z)
             posicion1 = int(parametros_needed[0])
@@ -597,6 +601,17 @@ class Robot():
             #mueve los servos a la vez
             self.net.synchronize()
             time.sleep(0.01)
+        """
+
+    def perder(self):
+        """
+        Para celebrar que el robot ha ganado la partida, recorre una circumferencia en un plano
+        """
+        ################################### nos aseguramos que 'destination' sea transforme a lista, para evitar errores de si fuese string o tuple
+        self.mover_robot([10, 6, -24])
+        self.mover_robot([-10, 6, -24])
+        self.mover_robot([10, 6, -24])
+        self.mover_robot([-10, 6 -24])
 
 class Arduino():
     def __init__(self):
