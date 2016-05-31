@@ -1,7 +1,7 @@
 // entradas de los pulsadores
-const int botonRojo = 7;
+const int botonRojo = 13;
 const int botonBlanco = 6;
-const int botonReset = 13;
+const int botonReset = 7;
 const int botonNext = 10;
 const int botonPlata = 2;
 const int botonAzul = 4;
@@ -83,7 +83,16 @@ void loop() {
       sprintf(respuesta51, '\0');
       while(a) {
         //interaccion 7 pulsadores
-        if (digitalRead(botonRojo) == LOW) {
+        if (digitalRead(botonReset) == LOW) {
+          sprintf(rojo,'\0');
+          sprintf(blanco,'\0');
+          sprintf(amar,'\0');
+          sprintf(azul,'\0');
+          sprintf(plata,'\0');
+          sprintf(respuesta51, '\0');
+          delay(300);
+        }
+        else if (digitalRead(botonRojo) == LOW) {
           sprintf(rojo, "%d|",4);
           strcat(respuesta51,rojo);
           delay(300);
@@ -110,19 +119,10 @@ void loop() {
         }
         else if (digitalRead(botonNext) == LOW) {
           a = false;
-          strcat(respuesta51, "\n")
           Serial.write(respuesta51);
           delay(300);
         }
-        else if (digitalRead(botonReset) == LOW) {
-          sprintf(rojo,'\0');
-          sprintf(blanco,'\0');
-          sprintf(amar,'\0');
-          sprintf(azul,'\0');
-          sprintf(plata,'\0');
-          sprintf(respuesta51, '\0');
-          delay(300);
-        }
+        
       }
     }
   }

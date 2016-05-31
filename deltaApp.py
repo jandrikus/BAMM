@@ -68,10 +68,11 @@ class Delta(MastermindDirecte, TabbedPanel):
         for y in range(5):
             huecoXY=huecoX+str(y)
             self.ids[huecoXY].background_color = self.colorsrgba[self.guess[y]]
-        Clock.schedule_once(self.esperar(), 1)
+        Clock.schedule_once(self.esperar, 1)
         checkbox = self.ids.checkbox
-        checkbox.bind(active=on_checkbox_active)
-        if checkbox.active == True:
+        checkbox.bind(active=self.on_checkbox_active)
+        print checkbox.active
+        try:
             ######################################## cargamos la ultima configuracion
             ultimoCodigo = open('ultimoCodigo', 'r')
             ultimo = ultimoCodigo.readline().split('|')
@@ -91,7 +92,7 @@ class Delta(MastermindDirecte, TabbedPanel):
             self.robot.quitar_bolitas(codigo, self.guess)
             self.robot.poner_bolitas(self.guess, codigo)
             self.robot.mover_robot([0, 0, -24])
-        else:
+        except:
             print 'No hay archivo ultimoCodigo = No hay bolitas puestas'
             #########################################aqui ha de venir el movimiento de bolitas!!!!
             ultimo = [None, None, None, None, None]
@@ -107,29 +108,44 @@ class Delta(MastermindDirecte, TabbedPanel):
             s+='{0},'.format(listaHuecoRobot[3])
         ultimoCodigo.write('{0}|{1}|{2}|{3}|{4}|{5}'.format(self.guess[0],self.guess[1],self.guess[2],self.guess[3],self.guess[4],s[:-1]))
         ultimoCodigo.close()
+        """
         continuar = Clock.create_trigger(self.continuar_p_directo)
         continuar() #1 intento
+        continuar = Clock.create_trigger(self.continuar_p_directo)
         continuar() #2 intento
+        continuar = Clock.create_trigger(self.continuar_p_directo)
         continuar() #3 intento
+        continuar = Clock.create_trigger(self.continuar_p_directo)
         continuar() #4 intento
+        continuar = Clock.create_trigger(self.continuar_p_directo)
         continuar() #5 intento
+        continuar = Clock.create_trigger(self.continuar_p_directo)
         continuar() #6 intento
+        """
+        """
+        while True:
+            self.continuar_p_directo()
+        """
 
     def continuar_p_directo(self):
-        """
+
         ######################################### respuesta del arduino
         self.pulsadores = Arduino()
         respuesta = self.pulsadores.codigo2()
         correct = respuesta[0]
         close = respuesta[1]
         ########################################## termina respuesta
-        """
+        if self.linea>7:
+            self.robot.perder()
+            return None
         self.linea+=1
-        arduino.write('2')
+        """arduino.write('2')
+        self.respuesta=''
         Clock.schedule_interval(self.respuesta_d_arduino, 1)# respuesta del arduino
         respuesta = self.respuesta_d
         correct = respuesta[0]
         close = respuesta[1]
+        """
         feedback = self.Feedback(correct, close)
         if self.linea >1:
             self.ids['textrojo'+str(self.linea-1)].text = str(correct)
@@ -141,7 +157,7 @@ class Delta(MastermindDirecte, TabbedPanel):
             self.ids.empezar_i_directo.text='Reiniciar (interfaz)'
             self.robot.celebrar()
             return None
-        Clock.schedule_once(self.esperar(), 1)
+        #Clock.schedule_once(self.esperar, 1)
         try:
             initime = time.time()
             self.previousPool = copy.copy(self.pool)
@@ -189,10 +205,10 @@ class Delta(MastermindDirecte, TabbedPanel):
         for y in range(5):
             huecoXY=huecoX+str(y)
             self.ids[huecoXY].background_color = self.colorsrgba[self.guess[y]]
-        Clock.schedule_once(self.esperar(), 1)
-        checkbox = self.ids.checkbox
-        checkbox.bind(active=on_checkbox_active)
-        if checkbox.active == True:
+        Clock.schedule_once(self.esperar, 1)
+        #checkbox = self.ids.checkbox
+        #checkbox.bind(active=self.on_checkbox_active)
+        try:
             ######################################## cargamos la ultima configuracion
             ultimoCodigo = open('ultimoCodigo', 'r')
             ultimo = ultimoCodigo.readline().split('|')
@@ -212,7 +228,7 @@ class Delta(MastermindDirecte, TabbedPanel):
             self.robot.quitar_bolitas(codigo, self.guess)
             self.robot.poner_bolitas(self.guess, codigo)
             self.robot.mover_robot([0, 0, -24])
-        else:
+        except:
             print 'No hay archivo ultimoCodigo = No hay bolitas puestas'
             #########################################aqui ha de venir el movimiento de bolitas!!!!
             ultimo = [None, None, None, None, None]
@@ -234,6 +250,9 @@ class Delta(MastermindDirecte, TabbedPanel):
         Continua un turno del juego, requiere la respuesta del usuario por texto de interfaz
         Siempre guarda la ultima configuracion del robot para siguientes inicios
         """
+        if self.linea>7:
+            self.robot.perder()
+            return None
         self.linea+=1
         correct = int(self.ids.reds.text)
         close = int(self.ids.whites.text)
@@ -248,7 +267,7 @@ class Delta(MastermindDirecte, TabbedPanel):
             self.ids.empezar_i_directo.text='Reiniciar (interfaz)'
             self.robot.celebrar()
             return None
-        Clock.schedule_once(self.esperar(), 1)
+        Clock.schedule_once(self.esperar, 1)
         try:
             initime = time.time()
             self.previousPool = copy.copy(self.pool)
@@ -293,6 +312,7 @@ class Delta(MastermindDirecte, TabbedPanel):
         self.linea2 = 0
         self.inv.empezar()
         self.linea2+=1
+        """
         arduino.write('3')
         Clock.schedule_interval(self.respuesta_i_arduino, 1)# respuesta del arduino
         guess2 = self.respuesta_i_arduino
@@ -303,7 +323,6 @@ class Delta(MastermindDirecte, TabbedPanel):
         self.pulsadores = Arduino()
         guess2 = self.pulsadores.codigo5()
         print guess2
-        """
         rojas2, blancas2 = self.inv.continuar(guess2)
         print rojas2, blancas2
         self.nuevas = [None, None, None, None, None]
@@ -317,10 +336,10 @@ class Delta(MastermindDirecte, TabbedPanel):
             huecoXY=huecoX+str(y)
             print guess2[y]
             self.ids[huecoXY].background_color = self.colorsrgba[guess2[y]]
-        Clock.schedule_once(self.esperar(), 1)
-        checkbox = self.ids.checkbox
-        checkbox.bind(active=on_checkbox_active)
-        if checkbox.active == True:
+        Clock.schedule_once(self.esperar, 1)
+        #checkbox = self.ids.checkbox
+        #checkbox.bind(active=self.on_checkbox_active)
+        try:
             ######################################## cargamos la ultima configuracion
             ultimoCodigo = open('ultimoCodigo', 'r')
             ultimo = ultimoCodigo.readline().split('|')
@@ -340,7 +359,7 @@ class Delta(MastermindDirecte, TabbedPanel):
             self.robot.quitar_bolitas(codigo, self.nuevas)
             self.robot.poner_bolitas(self.nuevas, codigo)
             self.robot.mover_robot([0, 0, -24])
-        else:
+        except:
             print 'No hay archivo ultimoCodigo = No hay bolitas puestas'
             #########################################aqui ha de venir el movimiento de bolitas!!!!
             ultimo = [None, None, None, None, None]
@@ -352,7 +371,9 @@ class Delta(MastermindDirecte, TabbedPanel):
             self.ids.textprueba2.text = "Has ganado! (jo) (jo)"
             self.ids.jugar_p_inverso.text='Reiniciar (pulsadores)'
             self.ids.empezar_i_inverso.text='Reiniciar (interfaz)'
+            self.robot.perder()
             return None
+        """
         continuar = Clock.create_trigger(self.continuar_p_inverso)
         continuar() #2 intento
         continuar() #3 intento
@@ -360,9 +381,18 @@ class Delta(MastermindDirecte, TabbedPanel):
         continuar() #5 intento
         continuar() #6 intento
         continuar() #7 intento
+        """
+        """
+        while True:
+            self.continuar_p_inverso()
+        """
 
     def continuar_p_inverso(self):
+        if self.linea2>7:
+            self.robot.celebrar()
+            return None
         self.linea2+=1
+        """
         arduino.write('3')
         Clock.schedule_interval(self.respuesta_i_arduino, 1)# respuesta del arduino
         guess2 = self.respuesta_i_arduino
@@ -373,7 +403,6 @@ class Delta(MastermindDirecte, TabbedPanel):
         self.pulsadores = Arduino()
         guess2 = self.pulsadores.codigo5()
         print guess2
-        """
         rojas2, blancas2 = self.inv.continuar(guess2)
         print rojas2, blancas2
         self.viejas = copy.copy(self.nuevas)
@@ -387,7 +416,7 @@ class Delta(MastermindDirecte, TabbedPanel):
             huecoXY=huecoX+str(y)
             print guess2[y]
             self.ids[huecoXY].background_color = self.colorsrgba[guess2[y]]
-        Clock.schedule_once(self.esperar(), 1)
+        Clock.schedule_once(self.esperar, 1)
         #########################################aqui ha de venir el movimiento de bolitas!!!!
         print self.viejas
         print self.nuevas
@@ -410,6 +439,7 @@ class Delta(MastermindDirecte, TabbedPanel):
             self.ids.textprueba2.text = "Has ganado! (jo) (jo)"
             self.ids.jugar_p_inverso.text='Reiniciar (pulsadores)'
             self.ids.empezar_i_inverso.text='Reiniciar (interfaz)'
+            self.robot.perder()
             return None
 
     def empezar_i_inverso(self):
@@ -437,10 +467,10 @@ class Delta(MastermindDirecte, TabbedPanel):
             huecoXY=huecoX+str(y)
             print guess2[y]
             self.ids[huecoXY].background_color = self.colorsrgba[guess2[y]]
-        Clock.schedule_once(self.esperar(), 1)
-        checkbox = self.ids.checkbox
-        checkbox.bind(active=on_checkbox_active)
-        if checkbox.active == True:
+        Clock.schedule_once(self.esperar, 1)
+        #checkbox = self.ids.checkbox
+        #checkbox.bind(active=self.on_checkbox_active)
+        try:
             ######################################## cargamos la ultima configuracion
             ultimoCodigo = open('ultimoCodigo', 'r')
             ultimo = ultimoCodigo.readline().split('|')
@@ -460,7 +490,7 @@ class Delta(MastermindDirecte, TabbedPanel):
             self.robot.quitar_bolitas(codigo, self.nuevas)
             self.robot.poner_bolitas(self.nuevas, codigo)
             self.robot.mover_robot([0, 0, -24])
-        else:
+        except:
             print 'No hay archivo ultimoCodigo = No hay bolitas puestas'
             #########################################aqui ha de venir el movimiento de bolitas!!!!
             ultimo = [None, None, None, None, None]
@@ -472,12 +502,16 @@ class Delta(MastermindDirecte, TabbedPanel):
             self.ids.textprueba2.text = "Has ganado! (jo) (jo)"
             self.ids.jugar_p_inverso.text='Reiniciar (pulsadores)'
             self.ids.empezar_i_inverso.text='Reiniciar (interfaz)'
+            self.robot.perder()
             return None
 
     def continuar_i_inverso(self):
         """
         Continua un turno del juego, requiere la respuesta del usuario por texto de interfaz
         """
+        if self.linea2>7:
+            self.robot.celebrar()
+            return None
         self.linea2+=1
         guess2 = self.ids.codigo.text
         guess2 = guess2.split()
@@ -496,7 +530,7 @@ class Delta(MastermindDirecte, TabbedPanel):
             huecoXY=huecoX+str(y)
             print guess2[y]
             self.ids[huecoXY].background_color = self.colorsrgba[guess2[y]]
-        Clock.schedule_once(self.esperar(), 1)
+        Clock.schedule_once(self.esperar, 1)
         #########################################aqui ha de venir el movimiento de bolitas!!!!
         print self.viejas
         print self.nuevas
@@ -519,12 +553,14 @@ class Delta(MastermindDirecte, TabbedPanel):
             self.ids.textprueba2.text = "Has ganado! (jo) (jo)"
             self.ids.jugar_p_inverso.text='Reiniciar (pulsadores)'
             self.ids.empezar_i_inverso.text='Reiniciar (interfaz)'
+            self.robot.perder()
             return None
 
     def respuesta_d_arduino(self, dt):
-        respuesta = arduino.readline()
-        if len(respuesta)==3:
-            respuesta=[int(i) for i in respuesta.split('|')]
+        self.respuesta += arduino.read()
+        print respuesta
+        if len(respuesta)==4:
+            respuesta=[int(i) for i in self.respuesta.split('|')]
             self.respuesta_d = respuesta
             return False
 
