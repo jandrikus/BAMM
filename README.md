@@ -33,6 +33,15 @@ Robot delta interactivo capaz de jugar al mastermind.
 
 #### Interfaz
 
+#### Arduino
+
+El uso del arduino es muy simple. Contiene 4 bloques de código independientes y se ejecutan por separado dependiendo de que carácter (dígito) se entra por la comunicación serial. Los bloques y su correspondientes números son los siguientes:
+
+- 0 Apaga el electroimán
+- 1 Enciende el electroimán
+- 2 Permite al usuario responder en el modo directo
+- 3 Permite al usuario responder en el modo inverso
+
 ## Documentación
 #### robot.py
 
