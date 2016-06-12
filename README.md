@@ -25,13 +25,24 @@ Robot delta interactivo capaz de jugar al mastermind.
       
     $ sudo python deltaApp.py
 5. Si es la primera vez que se inicia, pedirá buscar los Servos. En tal caso, hay que seguir las intrucciones referentes a settings.yaml
-6. Ya se puede jugar. Es recomendable leer previamente las intrucciones de la interfaz
+6. Ya se puede jugar. Es recomendable leer previamente las intrucciones de la interfaz.
 
 #### settings.yaml
+Se trata del archivo que se crea al iniciar el programa y que guarda toda la información relacionada con los motores y todo aquello necesario para empezar a mover el robot, así como los ID's de los motores, etc...
 
 #### ultimoCodigo
+Nos permite guardar el último código que se usó en la anterior partida para que al iniciar la siguiente, el robot lo saque y recoloque las bolas en su posición inicial sin necesidad de que lo hagamos manualmente.
 
 #### Interfaz
+La interfaz es una de las partes clave del juego, ya que nos aportará mucha información necesaria para jugar y hará el juego mucho más visual de lo que sería sin ella.
+
+En ella obtenemos información de las tiradas que el robot ha hecho anteriormente, las pistas que le hemos dado e incluso nos permite jugar sin la necesidad de los pulsadores.
+
+Consta de botones para empezar el juego, introducir las pistas que le daremos al robot, para resetear, etc...
+
+En primer lugar, pulsaremos 'Empezar', y luego simplemente debemos seguir las instrucciones que veremos en pantalla. Cuando el robot acabe cada uno de los intentos, introduciremos en los espacios el número de pines blancos y rojos que correspondan y dar al botón siguiente.
+
+La partida acabará cuando el robot adivine nuestra combinación o bien cuando supere el número de intentos máximo, que hemos dejado en un total de 7.
 
 #### Arduino
 
