@@ -53,6 +53,11 @@ El uso del arduino es muy simple. Contiene 4 bloques de código independientes y
 - 2 Permite al usuario responder en el modo directo
 - 3 Permite al usuario responder en el modo inverso
 
+## Media
+#### Captura de pantalla
+
+#### [Video demostración](https://youtu.be/Kd_JD7AP48w)
+
 ## Documentación
 #### robot.py
 
