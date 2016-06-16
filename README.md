@@ -55,6 +55,7 @@ El uso del arduino es muy simple. Contiene 4 bloques de código independientes y
 
 ## Media
 #### Captura de pantalla
+![](images/juegodeltadirecto.png?raw=true "Interfaz")
 
 #### [Video demostración](https://youtu.be/Kd_JD7AP48w)
 
